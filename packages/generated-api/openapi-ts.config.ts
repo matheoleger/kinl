@@ -1,5 +1,5 @@
-import process from 'node:process'
-import { defineConfig } from '@hey-api/openapi-ts'
+import process from 'node:process';
+import { defineConfig } from '@hey-api/openapi-ts';
 
 export default defineConfig({
   input:
@@ -32,4 +32,4 @@ export default defineConfig({
     },
     'zod',
   ],
-})
+});

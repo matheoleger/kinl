@@ -1,5 +1,5 @@
-import { Welcome } from '@/features/welcome/welcome'
+import { Welcome } from '@/features/welcome/welcome';
 
 export default function Home() {
-  return <Welcome />
+  return <Welcome />;
 }
