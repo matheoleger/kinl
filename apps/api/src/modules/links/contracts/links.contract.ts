@@ -12,7 +12,10 @@ export const linkSchema = z.object({
 
 export type Link = z.infer<typeof linkSchema>;
 
-export const linksSchema = z.array(linkSchema);
+export const linksSchema = z.array(linkSchema).openapi({
+  title: 'LinksSchema',
+  description: 'Schema for links',
+});
 
 export type Links = z.infer<typeof linksSchema>;
 

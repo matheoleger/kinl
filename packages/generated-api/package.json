@@ -1,6 +1,6 @@
 {
   "name": "@kinl/generated-api",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@10.11.0",
   "description": "",
@@ -12,6 +12,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "dotenvx run -- wait-on ${API_URL}/docs-json && pnpm generate --watch",
     "generate": "dotenvx run -- openapi-ts -f ./openapi-ts.config.ts"
+  },
+  "dependencies": {
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.45.1",
