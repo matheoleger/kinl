@@ -21,10 +21,10 @@ export const zLinksSchema = z.unknown();
 export const zLinkSchema = z.unknown();
 
 export const zLinksControllerGetAllLinksData = z.object({
-    body: z.never().optional(),
-    headers: z.never().optional(),
-    path: z.never().optional(),
-    query: z.never().optional()
+  body: z.never().optional(),
+  headers: z.never().optional(),
+  path: z.never().optional(),
+  query: z.never().optional(),
 });
 
 /**
@@ -33,10 +33,10 @@ export const zLinksControllerGetAllLinksData = z.object({
 export const zLinksControllerGetAllLinksResponse = zLinksSchema;
 
 export const zLinksControllerCreateLinkData = z.object({
-    body: zCreateLinkSchema,
-    headers: z.never().optional(),
-    path: z.never().optional(),
-    query: z.never().optional()
+  body: zCreateLinkSchema,
+  headers: z.never().optional(),
+  path: z.never().optional(),
+  query: z.never().optional(),
 });
 
 /**

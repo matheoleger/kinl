@@ -14,25 +14,23 @@ export interface QuerySerializerOptions {
   object?: SerializerOptions<ObjectStyle>;
 }
 
-const serializeFormDataPair = (data: FormData, key: string, value: unknown) => {
+function serializeFormDataPair(data: FormData, key: string, value: unknown) {
   if (typeof value === 'string' || value instanceof Blob) {
     data.append(key, value);
-  } else {
+  }
+  else {
     data.append(key, JSON.stringify(value));
   }
-};
+}
 
-const serializeUrlSearchParamsPair = (
-  data: URLSearchParams,
-  key: string,
-  value: unknown,
-) => {
+function serializeUrlSearchParamsPair(data: URLSearchParams, key: string, value: unknown) {
   if (typeof value === 'string') {
     data.append(key, value);
-  } else {
+  }
+  else {
     data.append(key, JSON.stringify(value));
   }
-};
+}
 
 export const formDataBodySerializer = {
   bodySerializer: <T extends Record<string, any> | Array<Record<string, any>>>(
@@ -45,8 +43,9 @@ export const formDataBodySerializer = {
         return;
       }
       if (Array.isArray(value)) {
-        value.forEach((v) => serializeFormDataPair(data, key, v));
-      } else {
+        value.forEach(v => serializeFormDataPair(data, key, v));
+      }
+      else {
         serializeFormDataPair(data, key, value);
       }
     });
@@ -58,8 +57,7 @@ export const formDataBodySerializer = {
 export const jsonBodySerializer = {
   bodySerializer: <T>(body: T) =>
     JSON.stringify(body, (key, value) =>
-      typeof value === 'bigint' ? value.toString() : value,
-    ),
+      typeof value === 'bigint' ? value.toString() : value),
 };
 
 export const urlSearchParamsBodySerializer = {
@@ -73,8 +71,9 @@ export const urlSearchParamsBodySerializer = {
         return;
       }
       if (Array.isArray(value)) {
-        value.forEach((v) => serializeUrlSearchParamsPair(data, key, v));
-      } else {
+        value.forEach(v => serializeUrlSearchParamsPair(data, key, v));
+      }
+      else {
         serializeUrlSearchParamsPair(data, key, value);
       }
     });

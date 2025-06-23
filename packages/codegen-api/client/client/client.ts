@@ -14,7 +14,7 @@ type ReqInit = Omit<RequestInit, 'body' | 'headers'> & {
   headers: ReturnType<typeof mergeHeaders>;
 };
 
-export const createClient = (config: Config = {}): Client => {
+export function createClient(config: Config = {}): Client {
   let _config = mergeConfigs(createConfig(), config);
 
   const getConfig = (): Config => ({ ..._config });
@@ -87,8 +87,8 @@ export const createClient = (config: Config = {}): Client => {
 
     if (response.ok) {
       if (
-        response.status === 204 ||
-        response.headers.get('Content-Length') === '0'
+        response.status === 204
+        || response.headers.get('Content-Length') === '0'
       ) {
         return opts.responseStyle === 'data'
           ? {}
@@ -98,8 +98,8 @@ export const createClient = (config: Config = {}): Client => {
             };
       }
 
-      const parseAs =
-        (opts.parseAs === 'auto'
+      const parseAs
+        = (opts.parseAs === 'auto'
           ? getParseAs(response.headers.get('Content-Type'))
           : opts.parseAs) ?? 'json';
 
@@ -135,7 +135,8 @@ export const createClient = (config: Config = {}): Client => {
 
     try {
       error = JSON.parse(error);
-    } catch {
+    }
+    catch {
       // noop
     }
 
@@ -164,18 +165,18 @@ export const createClient = (config: Config = {}): Client => {
 
   return {
     buildUrl,
-    connect: (options) => request({ ...options, method: 'CONNECT' }),
-    delete: (options) => request({ ...options, method: 'DELETE' }),
-    get: (options) => request({ ...options, method: 'GET' }),
+    connect: options => request({ ...options, method: 'CONNECT' }),
+    delete: options => request({ ...options, method: 'DELETE' }),
+    get: options => request({ ...options, method: 'GET' }),
     getConfig,
-    head: (options) => request({ ...options, method: 'HEAD' }),
+    head: options => request({ ...options, method: 'HEAD' }),
     interceptors,
-    options: (options) => request({ ...options, method: 'OPTIONS' }),
-    patch: (options) => request({ ...options, method: 'PATCH' }),
-    post: (options) => request({ ...options, method: 'POST' }),
-    put: (options) => request({ ...options, method: 'PUT' }),
+    options: options => request({ ...options, method: 'OPTIONS' }),
+    patch: options => request({ ...options, method: 'PATCH' }),
+    post: options => request({ ...options, method: 'POST' }),
+    put: options => request({ ...options, method: 'PUT' }),
     request,
     setConfig,
-    trace: (options) => request({ ...options, method: 'TRACE' }),
+    trace: options => request({ ...options, method: 'TRACE' }),
   };
-};
+}

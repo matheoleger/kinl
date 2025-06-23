@@ -13,7 +13,7 @@ export default antfu({
     '**/public',
     'pnpm-lock.yaml',
     'pnpm-workspace.yaml',
-    'packages/generated-api/client/',
+    'packages/codegen-api/client/',
   ],
   stylistic: {
     semi: true,
