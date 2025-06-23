@@ -1,6 +1,6 @@
-import type { PrismaService } from '../prisma/prisma.service';
-import type { CreateLinkInput } from './contracts/links.contract';
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateLinkInput } from './contracts/links.contract';
 
 @Injectable()
 export class LinksService {

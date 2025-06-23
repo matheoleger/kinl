@@ -1,8 +1,7 @@
-import type { CreateLinkInput } from './contracts/links.contract';
-import type { LinksService } from './links.service';
 import { TypedBody, TypedRoute } from '@lonestone/nzoth/server';
 import { Controller } from '@nestjs/common';
-import { createLinkSchema, linkSchema, linksSchema } from './contracts/links.contract';
+import { CreateLinkInput, createLinkSchema, linkSchema, linksSchema } from './contracts/links.contract';
+import { LinksService } from './links.service';
 
 @Controller('links')
 export class LinksController {
