@@ -17,9 +17,12 @@ export interface Auth {
   type: 'apiKey' | 'http';
 }
 
-export async function getAuthToken(auth: Auth, callback: ((auth: Auth) => Promise<AuthToken> | AuthToken) | AuthToken): Promise<string | undefined> {
-  const token
-    = typeof callback === 'function' ? await callback(auth) : callback;
+export const getAuthToken = async (
+  auth: Auth,
+  callback: ((auth: Auth) => Promise<AuthToken> | AuthToken) | AuthToken,
+): Promise<string | undefined> => {
+  const token =
+    typeof callback === 'function' ? await callback(auth) : callback;
 
   if (!token) {
     return;
@@ -34,4 +37,4 @@ export async function getAuthToken(auth: Auth, callback: ((auth: Auth) => Promis
   }
 
   return token;
-}
+};

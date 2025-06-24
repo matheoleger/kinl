@@ -12,6 +12,7 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
+    .setOpenAPIVersion('3.1.0')
     .setTitle('kinL API')
     .setDescription('The kinL API description')
     .setVersion('1.0')

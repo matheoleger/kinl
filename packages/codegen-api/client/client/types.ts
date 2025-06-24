@@ -9,7 +9,7 @@ export type ResponseStyle = 'data' | 'fields';
 
 export interface Config<T extends ClientOptions = ClientOptions>
   extends Omit<RequestInit, 'body' | 'headers' | 'method'>,
-  CoreConfig {
+    CoreConfig {
   /**
    * Base URL for all requests made by this client.
    */
@@ -56,9 +56,9 @@ export interface RequestOptions<
   ThrowOnError extends boolean = boolean,
   Url extends string = string,
 > extends Config<{
-  responseStyle: TResponseStyle;
-  throwOnError: ThrowOnError;
-}> {
+    responseStyle: TResponseStyle;
+    throwOnError: ThrowOnError;
+  }> {
   /**
    * Any body that you want to add to your request.
    *
@@ -95,23 +95,24 @@ export type RequestResult<
     >
   : Promise<
       TResponseStyle extends 'data'
-        ? | (TData extends Record<string, unknown>
-          ? TData[keyof TData]
-          : TData)
-        | undefined
+        ?
+            | (TData extends Record<string, unknown>
+                ? TData[keyof TData]
+                : TData)
+            | undefined
         : (
-          | {
-            data: TData extends Record<string, unknown>
-              ? TData[keyof TData]
-              : TData;
-            error: undefined;
-          }
-          | {
-            data: undefined;
-            error: TError extends Record<string, unknown>
-              ? TError[keyof TError]
-              : TError;
-          }
+            | {
+                data: TData extends Record<string, unknown>
+                  ? TData[keyof TData]
+                  : TData;
+                error: undefined;
+              }
+            | {
+                data: undefined;
+                error: TError extends Record<string, unknown>
+                  ? TError[keyof TError]
+                  : TError;
+              }
           ) & {
             request: Request;
             response: Response;
@@ -139,8 +140,8 @@ type RequestFn = <
   ThrowOnError extends boolean = false,
   TResponseStyle extends ResponseStyle = 'fields',
 >(
-  options: Omit<RequestOptions<TResponseStyle, ThrowOnError>, 'method'>
-    & Pick<Required<RequestOptions<TResponseStyle, ThrowOnError>>, 'method'>,
+  options: Omit<RequestOptions<TResponseStyle, ThrowOnError>, 'method'> &
+    Pick<Required<RequestOptions<TResponseStyle, ThrowOnError>>, 'method'>,
 ) => RequestResult<TData, TError, ThrowOnError, TResponseStyle>;
 
 type BuildUrlFn = <
@@ -187,8 +188,8 @@ export type Options<
 > = OmitKeys<
   RequestOptions<TResponseStyle, ThrowOnError>,
   'body' | 'path' | 'query' | 'url'
->
-& Omit<TData, 'url'>;
+> &
+  Omit<TData, 'url'>;
 
 export type OptionsLegacyParser<
   TData = unknown,
@@ -199,16 +200,16 @@ export type OptionsLegacyParser<
     ? OmitKeys<
         RequestOptions<TResponseStyle, ThrowOnError>,
         'body' | 'headers' | 'url'
-      >
-      & TData
-    : OmitKeys<RequestOptions<TResponseStyle, ThrowOnError>, 'body' | 'url'>
-        & TData
-        & Pick<RequestOptions<TResponseStyle, ThrowOnError>, 'headers'>
+      > &
+        TData
+    : OmitKeys<RequestOptions<TResponseStyle, ThrowOnError>, 'body' | 'url'> &
+        TData &
+        Pick<RequestOptions<TResponseStyle, ThrowOnError>, 'headers'>
   : TData extends { headers?: any }
     ? OmitKeys<
         RequestOptions<TResponseStyle, ThrowOnError>,
         'headers' | 'url'
-      >
-      & TData
-      & Pick<RequestOptions<TResponseStyle, ThrowOnError>, 'body'>
+      > &
+        TData &
+        Pick<RequestOptions<TResponseStyle, ThrowOnError>, 'body'>
     : OmitKeys<RequestOptions<TResponseStyle, ThrowOnError>, 'url'> & TData;

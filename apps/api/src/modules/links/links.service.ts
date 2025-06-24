@@ -9,7 +9,8 @@ export class LinksService {
   ) {}
 
   async getAllLinks() {
-    return this.prisma.link.findMany();
+    // return this.prisma.link.findMany();
+    return [{ id: '1', url: 'https://github.com/lonestone/nzoth', createdAt: new Date(), updatedAt: new Date() }, { id: '2', url: 'https://github.com/matheoleger/kinl', createdAt: new Date(), updatedAt: new Date() }];
   }
 
   async createLink(input: CreateLinkInput) {

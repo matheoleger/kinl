@@ -4,55 +4,62 @@
  * CreateLinkSchema
  * Schema for create link item
  */
-export type CreateLinkSchema = unknown;
+export type CreateLinkSchema = {
+    url: string;
+};
 
 /**
  * LinksSchema
  * Schema for links
  */
-export type LinksSchema = unknown;
+export type LinksSchema = Array<LinkSchema>;
 
 /**
  * LinkSchema
  * Schema for link item
  */
-export type LinkSchema = unknown;
+export type LinkSchema = {
+    id: string;
+    url: string;
+    createdAt: Date;
+    updatedAt: Date;
+};
 
-export interface LinksControllerGetAllLinksData {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: '/links';
-}
+export type LinksControllerGetAllLinksData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/links';
+};
 
-export interface LinksControllerGetAllLinksResponses {
-  /**
-   * Schema for links
-   */
-  200: LinksSchema;
-}
+export type LinksControllerGetAllLinksResponses = {
+    /**
+     * Schema for links
+     */
+    200: LinksSchema;
+};
 
 export type LinksControllerGetAllLinksResponse = LinksControllerGetAllLinksResponses[keyof LinksControllerGetAllLinksResponses];
 
-export interface LinksControllerCreateLinkData {
-  /**
-   * Schema for create link item
-   */
-  body: CreateLinkSchema;
-  path?: never;
-  query?: never;
-  url: '/links';
-}
+export type LinksControllerCreateLinkData = {
+    /**
+     * Schema for create link item
+     */
+    body: CreateLinkSchema;
+    path?: never;
+    query?: never;
+    url: '/links';
+};
 
-export interface LinksControllerCreateLinkResponses {
-  /**
-   * Schema for link item
-   */
-  200: LinkSchema;
-}
+export type LinksControllerCreateLinkResponses = {
+    /**
+     * Schema for link item
+     */
+    200: LinkSchema;
+};
 
 export type LinksControllerCreateLinkResponse = LinksControllerCreateLinkResponses[keyof LinksControllerCreateLinkResponses];
 
-export interface ClientOptions {
-  baseUrl: string;
-}
+export type ClientOptions = {
+    baseUrl: string;
+};

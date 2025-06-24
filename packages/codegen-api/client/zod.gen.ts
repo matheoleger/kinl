@@ -6,25 +6,32 @@ import { z } from 'zod';
  * CreateLinkSchema
  * Schema for create link item
  */
-export const zCreateLinkSchema = z.unknown();
-
-/**
- * LinksSchema
- * Schema for links
- */
-export const zLinksSchema = z.unknown();
+export const zCreateLinkSchema = z.object({
+    url: z.string()
+});
 
 /**
  * LinkSchema
  * Schema for link item
  */
-export const zLinkSchema = z.unknown();
+export const zLinkSchema = z.object({
+    id: z.string(),
+    url: z.string(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime()
+});
+
+/**
+ * LinksSchema
+ * Schema for links
+ */
+export const zLinksSchema = z.array(zLinkSchema);
 
 export const zLinksControllerGetAllLinksData = z.object({
-  body: z.never().optional(),
-  headers: z.never().optional(),
-  path: z.never().optional(),
-  query: z.never().optional(),
+    body: z.never().optional(),
+    headers: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
 });
 
 /**
@@ -33,10 +40,10 @@ export const zLinksControllerGetAllLinksData = z.object({
 export const zLinksControllerGetAllLinksResponse = zLinksSchema;
 
 export const zLinksControllerCreateLinkData = z.object({
-  body: zCreateLinkSchema,
-  headers: z.never().optional(),
-  path: z.never().optional(),
-  query: z.never().optional(),
+    body: zCreateLinkSchema,
+    headers: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
 });
 
 /**
