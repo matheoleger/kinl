@@ -14,6 +14,7 @@ export default antfu({
     'pnpm-lock.yaml',
     'pnpm-workspace.yaml',
     'packages/codegen-api/client/',
+    '**/prisma/generated',
   ],
   stylistic: {
     semi: true,
