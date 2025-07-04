@@ -11,8 +11,10 @@ WORKDIR /app
 # Stage 2: Installing deps, building and deploying
 FROM base AS builder
 
+ARG VITE_API_URL=/api
+ENV VITE_API_URL=${VITE_API_URL}
+
 COPY pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
-# COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm fetch
 
 COPY . .

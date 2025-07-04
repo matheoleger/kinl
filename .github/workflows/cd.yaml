@@ -1,0 +1,97 @@
+name: Continuous Deployment 🚀
+
+on:
+  push:
+    tags:
+      - v*
+
+  workflow_dispatch:
+    inputs:
+      node-version:
+        description: Node.js version
+        required: true
+        default: 22.x
+        type: string
+      pnpm-version:
+        description: pnpm version
+        required: true
+        default: 10.x
+        type: string
+
+jobs:
+  setup:
+    name: Setup 🔧
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 🔧
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Setup pnpm 🔧
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ inputs.pnpm-version }}
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies 📚
+        run: pnpm install
+
+      - name: Cache workspace 💾
+        uses: actions/cache@v3
+        with:
+          path: .
+          key: workspace-${{ github.sha }}
+
+  deploy-docker:
+    name: Deploy on Docker Hub 🐳
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Restore workspace 📂
+        uses: actions/cache@v3
+        with:
+          path: .
+          key: workspace-${{ github.sha }}
+
+      - name: Login to Docker Hub 🔐
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract version from Git tag 🏷️
+        id: vars
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Build and push Docker image 🐳
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          push: true
+          tags: |
+            matheoleger/kinl:latest
+            matheoleger/kinl:${{ env.RELEASE_VERSION }}
+          build-args: |
+            VITE_API_URL=/api

@@ -10,11 +10,7 @@ This folder contains the Dockerfile and all the files needed to build and run th
 
 ## Build kinL Docker image
 
-You need to add a .env.production file in the apps/pwa folder following the .env.example file.
-
-> :bulb: The important variable is VITE_API_URL which is the same domain for PWA and API to avoid overwriting the baseUrl in the API client (no need to have bash script to override env variables)
-
-Then, you can build the Docker image with the following command:
+You can build the Docker image with the following command:
 
 ```bash
 pnpm docker:build
