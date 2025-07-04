@@ -10,7 +10,6 @@ WORKDIR /app
 FROM base AS builder
 
 # pnpm fetch does require only lockfile
-# COPY pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 COPY pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 RUN pnpm fetch
 
@@ -26,7 +25,7 @@ RUN pnpm --filter api build
 RUN pnpm deploy --filter="./apps/api" --prod /app/api
 
 
-# Stage 4: Production (Final image)
+# Stage 3: Production (Final image)
 FROM base AS runner
 
 WORKDIR /app
@@ -34,15 +33,10 @@ WORKDIR /app
 # Set environment
 ENV NODE_ENV=production
 
-# COPY --from=builder /app/apps/api/node_modules ./node_modules
-# COPY --from=builder /app/apps/api/dist ./dist
-# COPY --from=builder /app/apps/api/package.json ./package.json
-
 COPY --from=builder /app/api/node_modules ./node_modules
 COPY --from=builder /app/api/dist ./dist
 COPY --from=builder /app/api/package.json ./package.json
 COPY --from=builder /app/api/prisma/generated ./prisma/generated
-
 
 # Expose port
 EXPOSE 3000
