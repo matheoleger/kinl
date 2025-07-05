@@ -1,0 +1,13 @@
+**/node_modules
+
+node_modules
+.pnpm-store
+dist
+
+# PWA
+apps/pwa/.react-router
+apps/pwa/build
+apps/pwa/node_modules
+apps/pwa/README.md
+
+apps/pwa/.env

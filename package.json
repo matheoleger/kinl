@@ -1,6 +1,6 @@
 {
   "name": "kinl",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@10.11.0",
   "description": "",
   "author": "",
@@ -14,7 +14,8 @@
   "scripts": {
     "dev": "pnpm --parallel dev",
     "build": "pnpm -r build",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "docker:build": "docker build -f docker/Dockerfile -t kinl .",
+    "test": "pnpm -r test",
     "prepare": "husky",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
