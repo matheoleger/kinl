@@ -95,3 +95,16 @@ jobs:
             matheoleger/kinl:${{ env.RELEASE_VERSION }}
           build-args: |
             VITE_API_URL=/api
+
+  deploy-render:
+    name: Deploy on Render 🌩️
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Deploy API 🚀
+        run: |
+          curl ${{ secrets.RENDER_API_WEBHOOK }}
+
+      - name: Deploy PWA 🚀
+        run: |
+          curl ${{ secrets.RENDER_PWA_WEBHOOK }}
