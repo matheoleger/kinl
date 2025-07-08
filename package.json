@@ -15,6 +15,7 @@
     "dev": "pnpm --parallel dev",
     "build": "pnpm -r build",
     "docker:build": "docker build -f docker/Dockerfile -t kinl .",
+    "compose:up": "docker-compose up -d",
     "test": "pnpm -r test",
     "prepare": "husky",
     "lint": "eslint",
