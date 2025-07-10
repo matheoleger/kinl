@@ -1,6 +1,7 @@
 import { addSchemasToSwagger, ZodSerializationExceptionFilter, ZodValidationExceptionFilter } from '@lonestone/nzoth/server';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -32,6 +33,8 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document, {
     jsonDocumentUrl: 'docs-json',
   });
+
+  app.use(cookieParser());
 
   await app.listen(process.env.PORT ?? 3000);
 }
