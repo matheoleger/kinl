@@ -7,8 +7,8 @@ import { z } from "zod";
  * Schema for sign in
  */
 export const zSignInSchema = z.object({
-  email: z.string(),
-  password: z.string(),
+  email: z.string().email(),
+  password: z.string().min(8),
 });
 
 /**
@@ -16,9 +16,9 @@ export const zSignInSchema = z.object({
  * Schema for register
  */
 export const zRegisterSchema = z.object({
-  email: z.string(),
-  username: z.string(),
-  password: z.string(),
+  email: z.string().email(),
+  username: z.string().min(3),
+  password: z.string().min(8),
 });
 
 /**

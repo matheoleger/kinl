@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
+import { Toaster } from 'sonner';
 import { queryClient } from './lib/query-client';
 import './app.css';
 
@@ -16,13 +17,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>kinL</title>
+        <link rel="icon" href="public/favicon.ico" />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="dark">
         {children}
         <ScrollRestoration />
         <Scripts />
+        <Toaster invert />
       </body>
     </html>
   );

@@ -5,9 +5,11 @@ export const SignInSchemaSchema = {
   properties: {
     email: {
       type: ["string"],
+      format: "email",
     },
     password: {
       type: ["string"],
+      minLength: 8,
     },
   },
   required: ["email", "password"],
@@ -20,12 +22,15 @@ export const RegisterSchemaSchema = {
   properties: {
     email: {
       type: ["string"],
+      format: "email",
     },
     username: {
       type: ["string"],
+      minLength: 3,
     },
     password: {
       type: ["string"],
+      minLength: 8,
     },
   },
   required: ["email", "username", "password"],
