@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router';
+import logo from '@/assets/logo/logo-color.svg';
 
 export default function AuthLayout() {
   return (
@@ -10,7 +11,7 @@ export default function AuthLayout() {
         <div className="max-w-[350px] flex flex-col justify-center items-center w-full space-y-6 px-4">
           {/* <div className="max-w-[350px] flex flex-col w-full space-y-6 px-4"> */}
           <div className="flex items-center gap-4">
-            <img src="src/assets/logo/logo-color.svg" alt="kinL logo" className="w-14" />
+            <img src={logo} alt="kinL logo" className="w-14" />
             <h1 className="text-6xl font-bold font-logo">kinL</h1>
           </div>
           <p className="text-sm">
