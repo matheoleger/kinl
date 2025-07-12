@@ -12,6 +12,8 @@ import type {
   AuthControllerRegisterResponses,
   AuthControllerLogoutData,
   AuthControllerLogoutResponses,
+  AuthControllerMeData,
+  AuthControllerMeResponses,
 } from "./types.gen";
 import {
   linksControllerGetAllLinksResponseTransformer,
@@ -113,6 +115,19 @@ export const authControllerLogout = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     url: "/auth/logout",
+    ...options,
+  });
+};
+
+export const authControllerMe = <ThrowOnError extends boolean = false>(
+  options?: Options<AuthControllerMeData, ThrowOnError>
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    AuthControllerMeResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/auth/me",
     ...options,
   });
 };

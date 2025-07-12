@@ -21,7 +21,7 @@ export class AuthService {
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Password doesn\'t match');
     }
 
     const payload = { sub: user.id, email: user.email };

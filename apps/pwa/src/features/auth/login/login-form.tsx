@@ -1,16 +1,26 @@
 import type { SignInSchema } from '@kinl/codegen-api';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { zSignInSchema } from '@kinl/codegen-api';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useLogin } from '../hooks/auth';
 
 export function LoginForm() {
-  const form = useForm<SignInSchema>();
+  const { mutate: login } = useLogin();
+
+  const form = useForm<SignInSchema>({
+    resolver: zodResolver(zSignInSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
   const onSubmit = (data: SignInSchema) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+    login(data);
   };
 
   return (

@@ -28,6 +28,16 @@ export type CreateLinkSchema = {
 };
 
 /**
+ * SafeUserSchema
+ * Schema for safe user item
+ */
+export type SafeUserSchema = {
+  id: string;
+  email: string;
+  username: string;
+};
+
+/**
  * LinksSchema
  * Schema for links
  */
@@ -119,6 +129,23 @@ export type AuthControllerLogoutData = {
 export type AuthControllerLogoutResponses = {
   200: unknown;
 };
+
+export type AuthControllerMeData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/auth/me";
+};
+
+export type AuthControllerMeResponses = {
+  /**
+   * Schema for safe user item
+   */
+  200: SafeUserSchema;
+};
+
+export type AuthControllerMeResponse =
+  AuthControllerMeResponses[keyof AuthControllerMeResponses];
 
 export type ClientOptions = {
   baseUrl: string;

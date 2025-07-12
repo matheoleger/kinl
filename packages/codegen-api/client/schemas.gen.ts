@@ -50,6 +50,25 @@ export const CreateLinkSchemaSchema = {
   description: "Schema for create link item",
 } as const;
 
+export const SafeUserSchemaSchema = {
+  type: ["object"],
+  properties: {
+    id: {
+      type: ["string"],
+    },
+    email: {
+      type: ["string"],
+      format: "email",
+    },
+    username: {
+      type: ["string"],
+    },
+  },
+  required: ["id", "email", "username"],
+  title: "SafeUserSchema",
+  description: "Schema for safe user item",
+} as const;
+
 export const LinksSchemaSchema = {
   type: ["array"],
   items: {

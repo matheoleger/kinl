@@ -30,6 +30,16 @@ export const zCreateLinkSchema = z.object({
 });
 
 /**
+ * SafeUserSchema
+ * Schema for safe user item
+ */
+export const zSafeUserSchema = z.object({
+  id: z.string(),
+  email: z.string().email(),
+  username: z.string(),
+});
+
+/**
  * LinkSchema
  * Schema for link item
  */
@@ -90,3 +100,15 @@ export const zAuthControllerLogoutData = z.object({
   path: z.never().optional(),
   query: z.never().optional(),
 });
+
+export const zAuthControllerMeData = z.object({
+  body: z.never().optional(),
+  headers: z.never().optional(),
+  path: z.never().optional(),
+  query: z.never().optional(),
+});
+
+/**
+ * Schema for safe user item
+ */
+export const zAuthControllerMeResponse = zSafeUserSchema;

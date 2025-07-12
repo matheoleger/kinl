@@ -5,8 +5,25 @@ import { toast } from 'sonner';
 import { apiClient } from '@/lib/api-client';
 
 export function useLogin() {
+  const navigate = useNavigate();
+
   return useMutation({
-    mutationFn: ({ email, password }: SignInSchema) => apiClient.authControllerSignIn({ body: { email, password } }),
+    mutationFn: async ({ email, password }: SignInSchema) => {
+      const res = await apiClient.authControllerSignIn({ body: { email, password } });
+
+      if (res.error) {
+        throw res.error;
+      }
+
+      return res.data;
+    },
+    onSuccess: () => {
+      toast.success('Successfully logged in');
+      navigate('/');
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 }
 

@@ -1,8 +1,11 @@
 import { TypedBody, TypedRoute } from '@lonestone/nzoth/server';
-import { Controller, Res } from '@nestjs/common';
+import { Controller, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
+import { safeUserSchema, User } from '../users/contracts/users.contract';
+import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { RegisterInput, registerSchema, SignInInput, signInSchema } from './contracts/auth.contract';
+import { CurrentUser } from './decorators/current-user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -32,5 +35,11 @@ export class AuthController {
     res.clearCookie('access_token');
 
     return { message: 'Successfully logged out' };
+  }
+
+  @TypedRoute.Get('me', safeUserSchema)
+  @UseGuards(AuthGuard)
+  async me(@CurrentUser() user: User) {
+    return user;
   }
 }
