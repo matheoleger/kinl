@@ -31,11 +31,16 @@ FROM nginx:alpine AS final
 
 RUN apk add --update nodejs npm
 
+# Useful for migrations
+RUN npm install -g prisma
+
 WORKDIR /app
 
 COPY --from=builder /app/api/node_modules ./node_modules
 COPY --from=builder /app/api/dist ./dist
 COPY --from=builder /app/api/package.json ./package.json
+COPY --from=builder /app/api/prisma/generated/client/schema.prisma ./prisma/schema.prisma
+COPY --from=builder /app/api/prisma/migrations ./prisma/migrations
 COPY --from=builder /app/api/prisma/generated ./prisma/generated
 
 COPY --from=builder /app/apps/pwa/build/client /usr/share/nginx/html
@@ -43,7 +48,7 @@ COPY --from=builder /app/apps/pwa/build/client /usr/share/nginx/html
 COPY docker/docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# NGINX config for SPA
+# NGINX config for SPA and API redirection
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80 3000

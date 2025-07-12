@@ -14,14 +14,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// First try for end-to-end types. This model is not final and will be updated.
-model Link {
-  id        String   @id @default(cuid())
-  url       String
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  username  String
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Coucou {
-  id        String   @id @default(cuid())
+// First try for end-to-end types. This model is not final and will be updated.
+model Link {
+  id        String   @id @default(uuid())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

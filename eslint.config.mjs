@@ -7,6 +7,7 @@ export default antfu({
   typescript: true,
   ignores: [
     '**/.react-router/**',
+    '**/components/ui/**',
     '**/dist/',
     '**/temp/',
     '**/build/',
