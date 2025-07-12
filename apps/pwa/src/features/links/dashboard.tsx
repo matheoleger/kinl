@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useLinks } from './hook/links';
+import { useLinks } from './hooks/links';
 
 export function Dashboard() {
   // TODO: improve this (just for testing here)

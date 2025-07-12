@@ -1,5 +1,5 @@
 import type { RegisterSchema, SignInSchema } from '@kinl/codegen-api';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { apiClient } from '@/lib/api-client';
@@ -28,9 +28,25 @@ export function useLogin() {
 }
 
 export function useLogout() {
-  return useQuery({
-    queryKey: ['auth'],
-    queryFn: () => apiClient.authControllerLogout(),
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: async () => {
+      const res = await apiClient.authControllerLogout();
+
+      if (res.error) {
+        throw res.error;
+      }
+
+      return res.data;
+    },
+    onSuccess: () => {
+      toast.success('Successfully logged out');
+      navigate('/login');
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 }
 

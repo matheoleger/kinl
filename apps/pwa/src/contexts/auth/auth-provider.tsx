@@ -3,12 +3,12 @@ import { createContext, use, useEffect, useMemo, useState } from 'react';
 import { apiClient } from '@/lib/api-client';
 
 interface AuthContextType {
-  user: any;
+  user: SafeUserSchema | null;
   loaded: boolean;
   setUser: (user: any) => void;
 }
 
-const AuthContext = createContext<AuthContextType | null>({
+const AuthContext = createContext<AuthContextType>({
   user: null,
   loaded: false,
   setUser: () => {},
