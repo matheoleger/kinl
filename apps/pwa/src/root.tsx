@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
 } from 'react-router';
 import { Toaster } from 'sonner';
+import AuthProvider from './contexts/auth/auth-provider';
 import { queryClient } from './lib/query-client';
 import './app.css';
 
@@ -35,7 +36,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <AuthProvider>
+        <Outlet />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

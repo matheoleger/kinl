@@ -1,5 +1,15 @@
-import { NavLink } from 'react-router';
+import { NavLink, redirect } from 'react-router';
 import { LoginForm } from '@/features/auth/login/login-form';
+import { apiClient } from '@/lib/api-client';
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function clientLoader() {
+  const res = await apiClient.authControllerMe();
+
+  if (res.data) {
+    return redirect('/');
+  }
+}
 
 export default function Login() {
   return (
