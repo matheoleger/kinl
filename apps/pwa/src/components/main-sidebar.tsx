@@ -18,8 +18,8 @@ export function MainSidebar() {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton className="h-full">
-                  <User2Icon className="w-10 h-10" />
+                <SidebarMenuButton className="h-full flex">
+                  <User2Icon className="!size-6" />
                   <div>
                     <p className="text-md">{user?.username}</p>
                     <p className="text-sm">
