@@ -36,7 +36,7 @@ export function MainSidebar() {
                 <DropdownMenuItem className="h-12" asChild>
                   <Button variant="ghost" className="m-0 w-full items-center justify-start flex gap-4" onClick={() => logout()}>
                     <DoorOpenIcon />
-                    <p>{t('auth.logout')}</p>
+                    <p>{t('auth.logout.title')}</p>
                   </Button>
                 </DropdownMenuItem>
               </DropdownMenuContent>

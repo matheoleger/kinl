@@ -3,11 +3,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { zRegisterSchema } from '@kinl/codegen-api';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { I18nFormMessage } from '@/components/ui/i18n-form-message';
 import { Input } from '@/components/ui/input';
 import { useRegister } from '../hooks/auth';
+
+const i18nRegisterSchema = zRegisterSchema.extend({
+  email: z.string().email('auth.login.form.errors.invalid_email'),
+  password: z.string().min(8, { message: 'auth.login.form.errors.password_must_be_at_least_8_characters_long' }),
+  username: z.string().min(3, { message: 'auth.login.form.errors.username_must_be_at_least_3_characters_long' }),
+});
 
 export function RegisterForm() {
   const { t } = useTranslation();
@@ -15,7 +23,7 @@ export function RegisterForm() {
   const { mutate: register } = useRegister();
 
   const form = useForm<RegisterSchema>({
-    resolver: zodResolver(zRegisterSchema),
+    resolver: zodResolver(i18nRegisterSchema),
     defaultValues: {
       email: '',
       username: '',
@@ -49,7 +57,7 @@ export function RegisterForm() {
                   <FormControl>
                     <Input {...field} placeholder={t('auth.register.form.username')} />
                   </FormControl>
-                  <FormMessage />
+                  <I18nFormMessage />
                 </FormItem>
               )}
             />
@@ -62,7 +70,7 @@ export function RegisterForm() {
                   <FormControl>
                     <Input {...field} placeholder={t('auth.register.form.email')} />
                   </FormControl>
-                  <FormMessage />
+                  <I18nFormMessage />
                 </FormItem>
               )}
             />
@@ -75,7 +83,7 @@ export function RegisterForm() {
                   <FormControl>
                     <Input {...field} type="password" placeholder={t('auth.register.form.password')} />
                   </FormControl>
-                  <FormMessage />
+                  <I18nFormMessage />
                 </FormItem>
               )}
             />

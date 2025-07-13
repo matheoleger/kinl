@@ -8,7 +8,13 @@
       "form": {
         "email": "Email",
         "password": "Password",
-        "submit": "Login"
+        "submit": "Login",
+        "success": "Successfully logged in",
+        "errors": {
+          "invalid_email": "Invalid email. Please enter a valid email.",
+          "username_must_be_at_least_3_characters_long": "Username must be at least 3 characters long",
+          "password_must_be_at_least_8_characters_long": "Password must be at least 8 characters long"
+        }
       }
     },
     "register": {
@@ -19,10 +25,14 @@
         "username": "Username",
         "email": "Email",
         "password": "Password",
-        "submit": "Register"
+        "submit": "Register",
+        "success": "Successfully registered"
       }
     },
-    "logout": "Logout"
+    "logout": {
+      "title": "Logout",
+      "success": "Successfully logged out"
+    }
   },
   "common": {
     "error": {
@@ -34,5 +44,11 @@
     "dashboard": {
       "title": "Dashboard"
     }
+  },
+  "api_errors": {
+    "invalid_credentials": "Invalid credentials",
+    "user_not_found": "User not found",
+    "email_already_exists": "Email already exists",
+    "failed_to_create_user": "Failed to create user"
   }
 }

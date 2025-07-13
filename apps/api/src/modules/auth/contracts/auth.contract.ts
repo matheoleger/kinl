@@ -11,9 +11,9 @@ export const signInSchema = z.object({
 export type SignInInput = z.infer<typeof signInSchema>;
 
 export const registerSchema = z.object({
-  email: z.string().email('Invalid email. Please enter a valid email.'),
-  username: z.string().min(3, { message: 'Username must be at least 3 characters long' }),
-  password: z.string().min(8, { message: 'Password must be at least 8 characters long' }),
+  email: z.string().email('invalid_email'),
+  username: z.string().min(3, { message: 'username_must_be_at_least_3_characters_long' }),
+  password: z.string().min(8, { message: 'password_must_be_at_least_8_characters_long' }),
 }).openapi({
   title: 'RegisterSchema',
   description: 'Schema for register',
