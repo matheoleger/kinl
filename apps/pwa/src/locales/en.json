@@ -1,0 +1,54 @@
+{
+  "auth": {
+    "description": "A link sharing service that allows you to share links with your friends and colleagues.",
+    "login": {
+      "title": "Login",
+      "description": "Enter your email and password to access your workspace.",
+      "registerRedirection": "Don't have an account? <0>Register</0>",
+      "form": {
+        "email": "Email",
+        "password": "Password",
+        "submit": "Login",
+        "success": "Successfully logged in",
+        "errors": {
+          "invalid_email": "Invalid email. Please enter a valid email.",
+          "username_must_be_at_least_3_characters_long": "Username must be at least 3 characters long",
+          "password_must_be_at_least_8_characters_long": "Password must be at least 8 characters long"
+        }
+      }
+    },
+    "register": {
+      "title": "Register",
+      "description": "Register your account to access your workspace.",
+      "loginRedirection": "You already have an account? <0>Login</0>",
+      "form": {
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Register",
+        "success": "Successfully registered"
+      }
+    },
+    "logout": {
+      "title": "Logout",
+      "success": "Successfully logged out"
+    }
+  },
+  "common": {
+    "error": {
+      "title": "Error",
+      "description": "Something went wrong. Please try again later."
+    }
+  },
+  "links": {
+    "dashboard": {
+      "title": "Dashboard"
+    }
+  },
+  "api_errors": {
+    "invalid_credentials": "Invalid credentials",
+    "user_not_found": "User not found",
+    "email_already_exists": "Email already exists",
+    "failed_to_create_user": "Failed to create user"
+  }
+}

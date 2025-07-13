@@ -15,13 +15,13 @@ export class AuthService {
     const user = await this.usersService.findOneByEmail(email);
 
     if (!user) {
-      throw new BadRequestException('User not found');
+      throw new BadRequestException('user_not_found');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Password doesn\'t match');
+      throw new UnauthorizedException('invalid_credentials');
     }
 
     const payload = { sub: user.id, email: user.email };
@@ -34,7 +34,7 @@ export class AuthService {
     const existingUser = await this.usersService.findOneByEmail(email);
 
     if (existingUser) {
-      throw new BadRequestException('User already exists');
+      throw new BadRequestException('email_already_exists');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -46,7 +46,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new InternalServerErrorException('Failed to create user');
+      throw new InternalServerErrorException('failed_to_create_user');
     }
 
     const { password: _, ...result } = user;

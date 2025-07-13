@@ -1,5 +1,4 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-
 import {
   Links,
   Meta,
@@ -7,9 +6,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
+
 import { Toaster } from 'sonner';
 import AuthProvider from './contexts/auth/auth-provider';
 import { queryClient } from './lib/query-client';
+import './lib/i18n.ts';
 import './app.css';
 
 export function Layout({ children }: { children: React.ReactNode }) {

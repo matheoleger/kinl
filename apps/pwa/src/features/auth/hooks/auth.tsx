@@ -1,10 +1,12 @@
 import type { RegisterSchema, SignInSchema } from '@kinl/codegen-api';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { apiClient } from '@/lib/api-client';
 
 export function useLogin() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return useMutation({
@@ -18,16 +20,17 @@ export function useLogin() {
       return res.data;
     },
     onSuccess: () => {
-      toast.success('Successfully logged in');
+      toast.success(t('auth.login.form.success'));
       navigate('/');
     },
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(t(`api_errors.${error.message}`));
     },
   });
 }
 
 export function useLogout() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return useMutation({
@@ -41,16 +44,17 @@ export function useLogout() {
       return res.data;
     },
     onSuccess: () => {
-      toast.success('Successfully logged out');
+      toast.success(t('auth.logout.success'));
       navigate('/login');
     },
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(t(`api_errors.${error.message}`));
     },
   });
 }
 
 export function useRegister() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return useMutation({
@@ -66,11 +70,11 @@ export function useRegister() {
       return res.data;
     },
     onSuccess: () => {
-      toast.success('Successfully registered');
+      toast.success(t('auth.register.form.success'));
       navigate('/login');
     },
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(t(`api_errors.${error.message}`));
     },
   });
 }
