@@ -1,3 +1,17 @@
+# Changelog
+
+## 0.2.0 (2025-07-13)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### New Features 🎉
+* feat(auth): auth system via cookie + redirection + first style by @matheoleger in https://github.com/matheoleger/kinl/pull/3
+* feat(i18n): implement i18n in the app (front/back) in order to be future-proof by @matheoleger in https://github.com/matheoleger/kinl/pull/5
+
+
+**Full Changelog**: https://github.com/matheoleger/kinl/compare/v0.1.0...v0.2.0
+
 ## 0.1.0 (2025-07-05)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
