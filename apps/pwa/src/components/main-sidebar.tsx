@@ -1,4 +1,5 @@
 import { ChevronUpIcon, DoorOpenIcon, User2Icon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
@@ -6,6 +7,8 @@ import { useAuth } from '@/contexts/auth/auth-provider';
 import { useLogout } from '@/features/auth/hooks/auth';
 
 export function MainSidebar() {
+  const { t } = useTranslation();
+
   const { user } = useAuth();
   const { mutate: logout } = useLogout();
 
@@ -33,7 +36,7 @@ export function MainSidebar() {
                 <DropdownMenuItem className="h-12" asChild>
                   <Button variant="ghost" className="m-0 w-full items-center justify-start flex gap-4" onClick={() => logout()}>
                     <DoorOpenIcon />
-                    <p>Logout</p>
+                    <p>{t('auth.logout')}</p>
                   </Button>
                 </DropdownMenuItem>
               </DropdownMenuContent>

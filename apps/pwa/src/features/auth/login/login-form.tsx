@@ -2,6 +2,7 @@ import type { SignInSchema } from '@kinl/codegen-api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { zSignInSchema } from '@kinl/codegen-api';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -9,6 +10,8 @@ import { Input } from '@/components/ui/input';
 import { useLogin } from '../hooks/auth';
 
 export function LoginForm() {
+  const { t } = useTranslation();
+
   const { mutate: login } = useLogin();
 
   const form = useForm<SignInSchema>({
@@ -27,10 +30,10 @@ export function LoginForm() {
     <Card className="w-full max-w-sm backdrop-blur-md bg-card/60">
       <CardHeader>
         <CardTitle className="text-xl">
-          Login
+          {t('auth.login.title')}
         </CardTitle>
         <CardDescription>
-          Enter your email and password to access your workspace.
+          {t('auth.login.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -41,9 +44,9 @@ export function LoginForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('auth.login.form.email')}</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Email" />
+                    <Input {...field} placeholder={t('auth.login.form.email')} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -54,16 +57,16 @@ export function LoginForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('auth.login.form.password')}</FormLabel>
                   <FormControl>
-                    <Input {...field} type="password" placeholder="Password" />
+                    <Input {...field} type="password" placeholder={t('auth.login.form.password')} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <CardFooter className="flex-col gap-2">
-              <Button type="submit">Login</Button>
+              <Button type="submit">{t('auth.login.form.submit')}</Button>
             </CardFooter>
           </form>
         </Form>

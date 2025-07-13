@@ -2,6 +2,7 @@ import type { RegisterSchema } from '@kinl/codegen-api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { zRegisterSchema } from '@kinl/codegen-api';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -9,6 +10,8 @@ import { Input } from '@/components/ui/input';
 import { useRegister } from '../hooks/auth';
 
 export function RegisterForm() {
+  const { t } = useTranslation();
+
   const { mutate: register } = useRegister();
 
   const form = useForm<RegisterSchema>({
@@ -28,10 +31,10 @@ export function RegisterForm() {
     <Card className="w-full max-w-sm backdrop-blur-md bg-card/60">
       <CardHeader>
         <CardTitle className="text-xl">
-          Register
+          {t('auth.register.title')}
         </CardTitle>
         <CardDescription>
-          Register your account to access your workspace.
+          {t('auth.register.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -42,9 +45,9 @@ export function RegisterForm() {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>{t('auth.register.form.username')}</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Username" />
+                    <Input {...field} placeholder={t('auth.register.form.username')} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -55,9 +58,9 @@ export function RegisterForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('auth.register.form.email')}</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Email" />
+                    <Input {...field} placeholder={t('auth.register.form.email')} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -68,16 +71,16 @@ export function RegisterForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('auth.register.form.password')}</FormLabel>
                   <FormControl>
-                    <Input {...field} type="password" placeholder="Password" />
+                    <Input {...field} type="password" placeholder={t('auth.register.form.password')} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <CardFooter className="flex-col gap-2">
-              <Button type="submit">Login</Button>
+              <Button type="submit">{t('auth.register.form.submit')}</Button>
             </CardFooter>
           </form>
         </Form>
