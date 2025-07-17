@@ -1,5 +1,15 @@
-import { Outlet } from 'react-router';
+import { Outlet, redirect } from 'react-router';
 import logo from '@/assets/logo/logo-color.svg';
+import { apiClient } from '@/lib/api-client';
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function clientLoader() {
+  const res = await apiClient.authControllerMe();
+
+  if (res.data) {
+    return redirect('/');
+  }
+}
 
 export default function AuthLayout() {
   return (

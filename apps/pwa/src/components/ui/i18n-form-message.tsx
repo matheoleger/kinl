@@ -13,8 +13,6 @@ function I18nFormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   const { error, formMessageId } = useFormField();
   const body = error ? t(`${error?.message}`) : props.children;
 
-  console.log(error);
-
   if (!body) {
     return null;
   }

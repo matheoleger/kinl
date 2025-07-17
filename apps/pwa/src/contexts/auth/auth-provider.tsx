@@ -1,42 +1,23 @@
 import type { SafeUserSchema } from '@kinl/codegen-api';
-import { createContext, use, useEffect, useMemo, useState } from 'react';
-import { apiClient } from '@/lib/api-client';
+import { createContext, use, useMemo, useState } from 'react';
 
 interface AuthContextType {
   user: SafeUserSchema | null;
-  loaded: boolean;
   setUser: (user: any) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
-  loaded: false,
   setUser: () => {},
 });
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<SafeUserSchema | null>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    apiClient.authControllerMe().then((res) => {
-      if (res.error) {
-        throw res.error;
-      }
-      else if (!res.data) {
-        setUser(null);
-        throw new Error('No user found');
-      }
-
-      setUser(res.data);
-    }).finally(() => setLoaded(true));
-  }, []);
 
   const value = useMemo(() => ({
     user,
-    loaded,
     setUser,
-  }), [user, loaded]);
+  }), [user]);
 
   return (
     <AuthContext value={value}>
