@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.1 (2025-07-17)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Bugfixes 🐛
+* fix(auth): set user in auth after clientLoader + clean code by @matheoleger in https://github.com/matheoleger/kinl/pull/6
+
+
+**Full Changelog**: https://github.com/matheoleger/kinl/compare/v0.2.0...v0.2.1
+
 ## 0.2.0 (2025-07-13)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
