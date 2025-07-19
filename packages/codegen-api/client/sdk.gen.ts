@@ -6,6 +6,10 @@ import type {
   LinksControllerGetAllLinksResponses,
   LinksControllerCreateLinkData,
   LinksControllerCreateLinkResponses,
+  LinksControllerDeleteLinkData,
+  LinksControllerDeleteLinkResponses,
+  LinksControllerUpdateLinkData,
+  LinksControllerUpdateLinkResponses,
   AuthControllerSignInData,
   AuthControllerSignInResponses,
   AuthControllerRegisterData,
@@ -18,6 +22,7 @@ import type {
 import {
   linksControllerGetAllLinksResponseTransformer,
   linksControllerCreateLinkResponseTransformer,
+  linksControllerUpdateLinkResponseTransformer,
 } from "./transformers.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -64,6 +69,37 @@ export const linksControllerCreateLink = <ThrowOnError extends boolean = false>(
   >({
     responseTransformer: linksControllerCreateLinkResponseTransformer,
     url: "/links",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+};
+
+export const linksControllerDeleteLink = <ThrowOnError extends boolean = false>(
+  options: Options<LinksControllerDeleteLinkData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).delete<
+    LinksControllerDeleteLinkResponses,
+    unknown,
+    ThrowOnError
+  >({
+    url: "/links/{id}",
+    ...options,
+  });
+};
+
+export const linksControllerUpdateLink = <ThrowOnError extends boolean = false>(
+  options: Options<LinksControllerUpdateLinkData, ThrowOnError>
+) => {
+  return (options.client ?? _heyApiClient).patch<
+    LinksControllerUpdateLinkResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer: linksControllerUpdateLinkResponseTransformer,
+    url: "/links/{id}",
     ...options,
     headers: {
       "Content-Type": "application/json",

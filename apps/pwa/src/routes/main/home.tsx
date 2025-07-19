@@ -1,5 +1,9 @@
-import { Dashboard } from '@/features/links/dashboard';
+import { LinksList } from '@/features/links/components/links-list';
 
 export default function Home() {
-  return <Dashboard />;
+  return (
+    <div className="w-full">
+      <LinksList />
+    </div>
+  );
 }

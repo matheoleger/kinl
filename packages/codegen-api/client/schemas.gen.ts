@@ -44,10 +44,33 @@ export const CreateLinkSchemaSchema = {
     url: {
       type: ["string"],
     },
+    title: {
+      type: ["string"],
+    },
+    description: {
+      type: ["string"],
+    },
   },
   required: ["url"],
   title: "CreateLinkSchema",
   description: "Schema for create link item",
+} as const;
+
+export const UpdateLinkSchemaSchema = {
+  type: ["object"],
+  properties: {
+    url: {
+      type: ["string"],
+    },
+    title: {
+      type: ["string"],
+    },
+    description: {
+      type: ["string"],
+    },
+  },
+  title: "UpdateLinkSchema",
+  description: "Schema for update link item",
 } as const;
 
 export const SafeUserSchemaSchema = {
@@ -87,6 +110,18 @@ export const LinkSchemaSchema = {
     url: {
       type: ["string"],
     },
+    title: {
+      type: ["string"],
+    },
+    description: {
+      type: ["string"],
+    },
+    image: {
+      type: ["string"],
+    },
+    generated: {
+      type: ["boolean"],
+    },
     createdAt: {
       type: ["string"],
       format: "date-time",
@@ -96,7 +131,7 @@ export const LinkSchemaSchema = {
       format: "date-time",
     },
   },
-  required: ["id", "url", "createdAt", "updatedAt"],
+  required: ["id", "url", "generated", "createdAt", "updatedAt"],
   title: "LinkSchema",
   description: "Schema for link item",
 } as const;

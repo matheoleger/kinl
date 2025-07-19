@@ -3,6 +3,7 @@
 import type {
   LinksControllerGetAllLinksResponse,
   LinksControllerCreateLinkResponse,
+  LinksControllerUpdateLinkResponse,
 } from "./types.gen";
 
 const linkSchemaSchemaResponseTransformer = (data: any) => {
@@ -28,6 +29,13 @@ export const linksControllerGetAllLinksResponseTransformer = async (
 export const linksControllerCreateLinkResponseTransformer = async (
   data: any
 ): Promise<LinksControllerCreateLinkResponse> => {
+  data = linkSchemaSchemaResponseTransformer(data);
+  return data;
+};
+
+export const linksControllerUpdateLinkResponseTransformer = async (
+  data: any
+): Promise<LinksControllerUpdateLinkResponse> => {
   data = linkSchemaSchemaResponseTransformer(data);
   return data;
 };
