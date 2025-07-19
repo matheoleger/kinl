@@ -7,10 +7,12 @@ export function LinksList() {
   const { data: links } = useLinks();
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-4 justify-items-center px-6">
+    <ul className="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-4 justify-items-center px-6">
       {links?.data?.map(link => (
-        <LinkCard key={link.id} link={link} />
+        <li key={link.id}>
+          <LinkCard link={link} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
