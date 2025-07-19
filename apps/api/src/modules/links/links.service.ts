@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
+import urlMetadata from 'url-metadata';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateLinkInput } from './contracts/links.contract';
+import { CreateLinkInput, UpdateLinkInput } from './contracts/links.contract';
 
 @Injectable()
 export class LinksService {
@@ -8,14 +9,71 @@ export class LinksService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async getAllLinks() {
-    // return this.prisma.link.findMany();
-    return [{ id: '1', url: 'https://github.com/lonestone/nzoth', createdAt: new Date(), updatedAt: new Date() }, { id: '2', url: 'https://github.com/matheoleger/kinl', createdAt: new Date(), updatedAt: new Date() }];
+  async getAllLinksFromUser(userId: string) {
+    return this.prisma.link.findMany({
+      where: {
+        ownerId: userId,
+      },
+    });
   }
 
-  async createLink(input: CreateLinkInput) {
+  async createLink(input: CreateLinkInput, userId: string) {
+    const metadata = await urlMetadata(input.url);
+
+    const formattedMetadata = {
+      title: metadata.title || metadata['og:title'],
+      description: metadata.description || metadata['og:description'],
+      image: metadata.image || metadata['og:image'],
+    };
+
     return this.prisma.link.create({
-      data: input,
+      data: {
+        ...formattedMetadata,
+        ...input,
+        generated: false,
+        ownerId: userId,
+      },
+    });
+  }
+
+  async updateLink(input: UpdateLinkInput, linkId: string, userId: string) {
+    const isUserOwner = await this.prisma.link.findUnique({
+      where: {
+        id: linkId,
+        ownerId: userId,
+      },
+    });
+
+    if (!isUserOwner) {
+      throw new ForbiddenException('you_cannot_update_this_link');
+    }
+
+    return this.prisma.link.update({
+      where: {
+        id: linkId,
+      },
+      data: {
+        ...input,
+      },
+    });
+  }
+
+  async deleteLink(userId: string, linkId: string) {
+    const isUserOwner = await this.prisma.link.findUnique({
+      where: {
+        id: linkId,
+        ownerId: userId,
+      },
+    });
+
+    if (!isUserOwner) {
+      throw new ForbiddenException('you_cannot_delete_this_link');
+    }
+
+    return this.prisma.link.deleteMany({
+      where: {
+        ownerId: userId,
+      },
     });
   }
 }

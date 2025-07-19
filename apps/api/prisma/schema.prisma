@@ -21,12 +21,21 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  links Link[]
 }
 
 // First try for end-to-end types. This model is not final and will be updated.
 model Link {
-  id        String   @id @default(uuid())
-  url       String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  url         String
+  title       String
+  description String?
+  image       String?
+  generated   Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  ownerId     String
+
+  owner User @relation(fields: [ownerId], references: [id])
 }
