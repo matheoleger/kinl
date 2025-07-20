@@ -37,7 +37,6 @@ interface UpdateLinkDialogProps {
 const i18nUpdateLinkSchema = zUpdateLinkSchema.extend({
   url: z.string().url('links.update_link_dialog.form.errors.invalid_url').optional(),
   title: z.string().min(2, 'links.update_link_dialog.form.errors.invalid_title').optional(),
-  description: z.string().min(2, 'links.update_link_dialog.form.errors.invalid_description').optional(),
 });
 
 export function UpdateLinkDialog({

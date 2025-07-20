@@ -37,7 +37,7 @@ export type CreateLinkInput = z.infer<typeof createLinkSchema>;
 export const updateLinkSchema = z.object({
   url: z.string().url().optional(),
   title: z.string().min(2).optional(),
-  description: z.string().min(2).optional(),
+  description: z.string().optional(),
 }).openapi({
   title: 'UpdateLinkSchema',
   description: 'Schema for update link item',

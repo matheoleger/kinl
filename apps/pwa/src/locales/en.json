@@ -69,8 +69,7 @@
         "success": "Link successfully updated",
         "errors": {
           "invalid_url": "Please enter a valid URL.",
-          "invalid_title": "Length must be at least 2 characters.",
-          "invalid_description": "Length must be at least 2 characters."
+          "invalid_title": "Length must be at least 2 characters."
         }
       }
     },

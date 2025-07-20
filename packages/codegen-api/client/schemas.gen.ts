@@ -70,7 +70,6 @@ export const UpdateLinkSchemaSchema = {
     },
     description: {
       type: ["string"],
-      minLength: 2,
     },
   },
   title: "UpdateLinkSchema",

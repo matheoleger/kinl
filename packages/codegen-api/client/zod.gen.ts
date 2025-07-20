@@ -38,7 +38,7 @@ export const zCreateLinkSchema = z.object({
 export const zUpdateLinkSchema = z.object({
   url: z.string().url().optional(),
   title: z.string().min(2).optional(),
-  description: z.string().min(2).optional(),
+  description: z.string().optional(),
 });
 
 /**
