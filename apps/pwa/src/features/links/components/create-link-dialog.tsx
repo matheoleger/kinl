@@ -35,8 +35,6 @@ export function CreateLinkDialog({ trigger }: CreateLinkDialogProps) {
     resolver: zodResolver(i18nCreateLinkSchema),
     defaultValues: {
       url: '',
-      title: '',
-      description: '',
     },
   });
 
