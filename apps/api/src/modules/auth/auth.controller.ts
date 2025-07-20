@@ -19,7 +19,7 @@ export class AuthController {
       httpOnly: true,
       secure: false, // TODO: handle this in the config?
       sameSite: 'lax',
-      maxAge: 1000 * 60 * 60, // 1 hour
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
     });
 
     return { message: 'Successfully signed in' };

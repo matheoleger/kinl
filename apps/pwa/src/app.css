@@ -8,7 +8,8 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-logo: "Righteous", ui-sans-serif, system-ui, sans-serif;
-
+  
+  --grid-responsive: repeat(auto-fill, minmax(250px, 1fr));
 }
 
 html,
@@ -137,11 +138,6 @@ body {
 }
 
 .background-gradient-dark {
-  /* background: linear-gradient(225deg, #ffffff, #ffedec, #ffdbd8, #ffc9c6, #ffb7b3, #ffb0ac, #ffa7a4, #ff7e7e); */
-  /* background: linear-gradient(-30deg, #ff7e7e, #ffb1b1 30%, #fff 60%);   */
-  /* background: linear-gradient(-30deg, #ff7e7e, #ffb1b1 30%, #111111 80%);   */
-  /* background: radial-gradient(circle at -20% 120%, #ff7c7c, #ca6263, #97494a, #673132, #3b1b1c, #130708, #030202, #020101, #010000, #000000, #000000, #000000); */
-  /* background: radial-gradient(circle at 90% 120%, #ff7c7c, #ca6263, #97494a, #673132, #3b1b1c, #130708, #030202, #020101, #010000, #000000, #000000, #000000); */
   background: radial-gradient(circle at 110% 120%, #673232, #522828, #3f1e1e, #2c1414, #1a0b0b, #0a0404, #060303, #0b0505, #110707, #180a0a, #1e0e0e, #251212);
 }
 

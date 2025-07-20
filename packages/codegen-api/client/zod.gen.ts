@@ -26,7 +26,19 @@ export const zRegisterSchema = z.object({
  * Schema for create link item
  */
 export const zCreateLinkSchema = z.object({
-  url: z.string(),
+  url: z.string().url(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+});
+
+/**
+ * UpdateLinkSchema
+ * Schema for update link item
+ */
+export const zUpdateLinkSchema = z.object({
+  url: z.string().url().optional(),
+  title: z.string().min(2).optional(),
+  description: z.string().optional(),
 });
 
 /**
@@ -46,6 +58,10 @@ export const zSafeUserSchema = z.object({
 export const zLinkSchema = z.object({
   id: z.string(),
   url: z.string(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  image: z.string().optional(),
+  generated: z.boolean(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
 });
@@ -79,6 +95,29 @@ export const zLinksControllerCreateLinkData = z.object({
  * Schema for link item
  */
 export const zLinksControllerCreateLinkResponse = zLinkSchema;
+
+export const zLinksControllerDeleteLinkData = z.object({
+  body: z.never().optional(),
+  headers: z.never().optional(),
+  path: z.object({
+    id: z.string(),
+  }),
+  query: z.never().optional(),
+});
+
+export const zLinksControllerUpdateLinkData = z.object({
+  body: zUpdateLinkSchema,
+  headers: z.never().optional(),
+  path: z.object({
+    id: z.string(),
+  }),
+  query: z.never().optional(),
+});
+
+/**
+ * Schema for link item
+ */
+export const zLinksControllerUpdateLinkResponse = zLinkSchema;
 
 export const zAuthControllerSignInData = z.object({
   body: zSignInSchema,

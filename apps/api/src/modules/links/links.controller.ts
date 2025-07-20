@@ -1,7 +1,9 @@
-import { TypedBody, TypedRoute } from '@lonestone/nzoth/server';
+import { TypedBody, TypedParam, TypedRoute } from '@lonestone/nzoth/server';
 import { Controller, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
-import { CreateLinkInput, createLinkSchema, linkSchema, linksSchema } from './contracts/links.contract';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { User } from '../users/contracts/users.contract';
+import { CreateLinkInput, createLinkSchema, linkSchema, linksSchema, UpdateLinkInput, updateLinkSchema } from './contracts/links.contract';
 import { LinksService } from './links.service';
 
 @Controller('links')
@@ -12,12 +14,26 @@ export class LinksController {
   ) {}
 
   @TypedRoute.Get('', linksSchema)
-  getAllLinks() {
-    return this.linksService.getAllLinks();
+  getAllLinks(@CurrentUser() user: User) {
+    return this.linksService.getAllLinksFromUser(user.id);
   }
 
   @TypedRoute.Post('', linkSchema)
-  createLink(@TypedBody(createLinkSchema) body: CreateLinkInput) {
-    return this.linksService.createLink(body);
+  createLink(@CurrentUser() user: User, @TypedBody(createLinkSchema) body: CreateLinkInput) {
+    return this.linksService.createLink(body, user.id);
+  }
+
+  @TypedRoute.Patch(':id', linkSchema)
+  updateLink(
+    @CurrentUser() user: User,
+    @TypedBody(updateLinkSchema) body: UpdateLinkInput,
+    @TypedParam('id') linkId: string,
+  ) {
+    return this.linksService.updateLink(body, linkId, user.id);
+  }
+
+  @TypedRoute.Delete(':id')
+  deleteLink(@CurrentUser() user: User, @TypedParam('id') linkId: string) {
+    return this.linksService.deleteLink(linkId, user.id);
   }
 }

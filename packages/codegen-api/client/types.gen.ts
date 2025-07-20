@@ -25,6 +25,18 @@ export type RegisterSchema = {
  */
 export type CreateLinkSchema = {
   url: string;
+  title?: string;
+  description?: string;
+};
+
+/**
+ * UpdateLinkSchema
+ * Schema for update link item
+ */
+export type UpdateLinkSchema = {
+  url?: string;
+  title?: string;
+  description?: string;
 };
 
 /**
@@ -50,6 +62,10 @@ export type LinksSchema = Array<LinkSchema>;
 export type LinkSchema = {
   id: string;
   url: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  generated: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -90,6 +106,41 @@ export type LinksControllerCreateLinkResponses = {
 
 export type LinksControllerCreateLinkResponse =
   LinksControllerCreateLinkResponses[keyof LinksControllerCreateLinkResponses];
+
+export type LinksControllerDeleteLinkData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/links/{id}";
+};
+
+export type LinksControllerDeleteLinkResponses = {
+  200: unknown;
+};
+
+export type LinksControllerUpdateLinkData = {
+  /**
+   * Schema for update link item
+   */
+  body: UpdateLinkSchema;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/links/{id}";
+};
+
+export type LinksControllerUpdateLinkResponses = {
+  /**
+   * Schema for link item
+   */
+  200: LinkSchema;
+};
+
+export type LinksControllerUpdateLinkResponse =
+  LinksControllerUpdateLinkResponses[keyof LinksControllerUpdateLinkResponses];
 
 export type AuthControllerSignInData = {
   /**
