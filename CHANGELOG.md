@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0 (2025-07-20)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### New Features 🎉
+* feat(links): CRUD for links + implement in frontend by @matheoleger in https://github.com/matheoleger/kinl/pull/8
+
+
+**Full Changelog**: https://github.com/matheoleger/kinl/compare/v0.2.1...v0.3.0
+
 ## 0.2.1 (2025-07-17)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
