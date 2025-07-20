@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import urlMetadata from 'url-metadata';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateLinkInput, UpdateLinkInput } from './contracts/links.contract';
@@ -20,20 +20,25 @@ export class LinksService {
   async createLink(input: CreateLinkInput, userId: string) {
     const metadata = await urlMetadata(input.url);
 
-    const formattedMetadata = {
-      title: metadata.title || metadata['og:title'],
-      description: metadata.description || metadata['og:description'],
-      image: metadata.image || metadata['og:image'],
-    };
+    try {
+      const formattedMetadata = {
+        title: metadata.title || metadata['og:title'],
+        description: metadata.description || metadata['og:description'],
+        image: metadata.image || metadata['og:image'],
+      };
 
-    return this.prisma.link.create({
-      data: {
-        ...formattedMetadata,
-        ...input,
-        generated: false,
-        ownerId: userId,
-      },
-    });
+      return this.prisma.link.create({
+        data: {
+          ...formattedMetadata,
+          ...input,
+          generated: false,
+          ownerId: userId,
+        },
+      });
+    }
+    catch {
+      throw new InternalServerErrorException('error_creating_link');
+    }
   }
 
   async updateLink(input: UpdateLinkInput, linkId: string, userId: string) {
