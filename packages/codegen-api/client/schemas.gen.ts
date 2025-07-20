@@ -43,6 +43,7 @@ export const CreateLinkSchemaSchema = {
   properties: {
     url: {
       type: ["string"],
+      format: "uri",
     },
     title: {
       type: ["string"],
@@ -61,12 +62,15 @@ export const UpdateLinkSchemaSchema = {
   properties: {
     url: {
       type: ["string"],
+      format: "uri",
     },
     title: {
       type: ["string"],
+      minLength: 2,
     },
     description: {
       type: ["string"],
+      minLength: 2,
     },
   },
   title: "UpdateLinkSchema",

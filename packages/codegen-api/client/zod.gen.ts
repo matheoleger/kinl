@@ -26,7 +26,7 @@ export const zRegisterSchema = z.object({
  * Schema for create link item
  */
 export const zCreateLinkSchema = z.object({
-  url: z.string(),
+  url: z.string().url(),
   title: z.string().optional(),
   description: z.string().optional(),
 });
@@ -36,9 +36,9 @@ export const zCreateLinkSchema = z.object({
  * Schema for update link item
  */
 export const zUpdateLinkSchema = z.object({
-  url: z.string().optional(),
-  title: z.string().optional(),
-  description: z.string().optional(),
+  url: z.string().url().optional(),
+  title: z.string().min(2).optional(),
+  description: z.string().min(2).optional(),
 });
 
 /**

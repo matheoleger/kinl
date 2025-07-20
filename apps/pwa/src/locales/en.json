@@ -57,6 +57,23 @@
         }
       }
     },
+    "update_link_dialog": {
+      "title": "Update Link",
+      "description": "Update the link details.",
+      "form": {
+        "url": "URL",
+        "title": "Title",
+        "description": "Description",
+        "cancel": "Cancel",
+        "submit": "Update",
+        "success": "Link successfully updated",
+        "errors": {
+          "invalid_url": "Please enter a valid URL.",
+          "invalid_title": "Length must be at least 2 characters.",
+          "invalid_description": "Length must be at least 2 characters."
+        }
+      }
+    },
     "delete": {
       "title": "Delete link",
       "description": "Are you sure you want to delete this link?",

@@ -24,7 +24,7 @@ export const linksSchema = z.array(linkSchema).openapi({
 export type Links = z.infer<typeof linksSchema>;
 
 export const createLinkSchema = z.object({
-  url: z.string(),
+  url: z.string().url(),
   title: z.string().optional(),
   description: z.string().optional(),
 }).openapi({
@@ -35,9 +35,9 @@ export const createLinkSchema = z.object({
 export type CreateLinkInput = z.infer<typeof createLinkSchema>;
 
 export const updateLinkSchema = z.object({
-  url: z.string().optional(),
-  title: z.string().optional(),
-  description: z.string().optional(),
+  url: z.string().url().optional(),
+  title: z.string().min(2).optional(),
+  description: z.string().min(2).optional(),
 }).openapi({
   title: 'UpdateLinkSchema',
   description: 'Schema for update link item',

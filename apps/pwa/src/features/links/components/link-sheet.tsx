@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useDeleteLink } from '../hooks/links';
 import { LinkCard } from './link-card';
+import { UpdateLinkDialog } from './update-link-dialog';
 
 interface LinkSheetProps {
   link: LinkSchema;
@@ -30,9 +31,15 @@ export function LinkSheet({ link }: LinkSheetProps) {
             <Button variant="secondary" size="icon" asChild>
               <Link to={link.url} target="_blank" className="hover:text-primary"><Link2Icon /></Link>
             </Button>
-            <Button variant="secondary" size="icon">
-              <Edit2Icon />
-            </Button>
+            <UpdateLinkDialog
+              trigger={(
+                <Button variant="secondary" size="icon">
+                  <Edit2Icon />
+                </Button>
+              )}
+              linkId={link.id}
+              defaultValues={link}
+            />
             <AlertButton title="Delete link" description="Are you sure you want to delete this link?" onConfirm={() => deleteLink(link.id)}>
               <Button variant="secondary" size="icon">
                 <Trash2Icon className="text-destructive" />
