@@ -18,14 +18,20 @@ export class LinksService {
   }
 
   async createLink(input: CreateLinkInput, userId: string) {
-    const metadata = await urlMetadata(input.url);
+    const metadata = await this.getMetadataFromUrl(input.url);
 
     try {
-      const formattedMetadata = {
-        title: metadata.title || metadata['og:title'],
-        description: metadata.description || metadata['og:description'],
-        image: metadata.image || metadata['og:image'],
-      };
+      const formattedMetadata = metadata
+        ? {
+            title: metadata.title || metadata['og:title'],
+            description: metadata.description || metadata['og:description'],
+            image: metadata.image || metadata['og:image'],
+          }
+        : {
+            title: input.url,
+            description: '',
+            image: '',
+          };
 
       return this.prisma.link.create({
         data: {
@@ -38,6 +44,16 @@ export class LinksService {
     }
     catch {
       throw new InternalServerErrorException('error_creating_link');
+    }
+  }
+
+  async getMetadataFromUrl(url: string) {
+    try {
+      const metadata = await urlMetadata(url);
+      return metadata;
+    }
+    catch {
+      return null;
     }
   }
 
@@ -63,7 +79,7 @@ export class LinksService {
     });
   }
 
-  async deleteLink(userId: string, linkId: string) {
+  async deleteLink(linkId: string, userId: string) {
     const isUserOwner = await this.prisma.link.findUnique({
       where: {
         id: linkId,
@@ -77,6 +93,7 @@ export class LinksService {
 
     return this.prisma.link.deleteMany({
       where: {
+        id: linkId,
         ownerId: userId,
       },
     });

@@ -34,6 +34,6 @@ export class LinksController {
 
   @TypedRoute.Delete(':id')
   deleteLink(@CurrentUser() user: User, @TypedParam('id') linkId: string) {
-    return this.linksService.deleteLink(user.id, linkId);
+    return this.linksService.deleteLink(linkId, user.id);
   }
 }

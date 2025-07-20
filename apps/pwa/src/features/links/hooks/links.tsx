@@ -43,3 +43,28 @@ export function useCreateLink({ onSuccess, onError }: UseCreateLinkOptions = {})
     },
   });
 }
+
+export function useDeleteLink() {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (linkId: string) => {
+      const res = await apiClient.linksControllerDeleteLink({ path: { id: linkId } });
+
+      if (res.error) {
+        throw res.error;
+      }
+
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['links'] });
+      toast.success(t('links.delete.success'));
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error(t(`api_errors.${error.message}`));
+    },
+  });
+}

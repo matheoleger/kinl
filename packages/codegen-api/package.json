@@ -13,11 +13,11 @@
     "generate": "dotenvx run -- openapi-ts -f ./openapi-ts.config.ts"
   },
   "dependencies": {
-    "zod": "^3.25.67"
+    "zod": "^3.25.68"
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.45.1",
-    "@hey-api/openapi-ts": "^0.74.0",
+    "@hey-api/openapi-ts": "^0.76.0",
     "@types/node": "^24.0.3",
     "wait-on": "^8.0.3"
   }
