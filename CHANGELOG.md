@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.1 (2025-07-21)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Bugfixes 🐛
+* fix(dockerfile): image + add docker build in ci by @matheoleger in https://github.com/matheoleger/kinl/pull/10
+
+
+**Full Changelog**: https://github.com/matheoleger/kinl/compare/v0.3.0...v0.3.1
+
 ## 0.3.0 (2025-07-20)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
