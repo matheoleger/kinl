@@ -15,9 +15,9 @@ ARG VITE_API_URL=/api
 ENV VITE_API_URL=${VITE_API_URL}
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY . .
 RUN pnpm fetch
 
-COPY . .
 RUN pnpm install -r --offline --prefer-offline
 
 RUN pnpm --filter api prisma:generate

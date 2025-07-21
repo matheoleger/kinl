@@ -13,7 +13,8 @@
       "include-component-in-tag": false,
       "extra-files": [
         "apps/pwa/package.json",
-        "apps/api/package.json"
+        "apps/api/package.json",
+        "packages/codegen-api/package.json"
       ]
     }
   },
