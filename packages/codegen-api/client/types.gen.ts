@@ -5,8 +5,8 @@
  * Schema for sign in
  */
 export type SignInSchema = {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 };
 
 /**
@@ -14,9 +14,9 @@ export type SignInSchema = {
  * Schema for register
  */
 export type RegisterSchema = {
-  email: string;
-  username: string;
-  password: string;
+    email: string;
+    username: string;
+    password: string;
 };
 
 /**
@@ -24,9 +24,9 @@ export type RegisterSchema = {
  * Schema for create link item
  */
 export type CreateLinkSchema = {
-  url: string;
-  title?: string;
-  description?: string;
+    url: string;
+    title?: string;
+    description?: string;
 };
 
 /**
@@ -34,9 +34,25 @@ export type CreateLinkSchema = {
  * Schema for update link item
  */
 export type UpdateLinkSchema = {
-  url?: string;
-  title?: string;
-  description?: string;
+    url?: string;
+    title?: string;
+    description?: string;
+};
+
+/**
+ * CreateTagsSchema
+ * Schema for create tag item
+ */
+export type CreateTagsSchema = {
+    names: Array<string>;
+};
+
+/**
+ * UpdateTagSchema
+ * Schema for update tag item
+ */
+export type UpdateTagSchema = {
+    name: string;
 };
 
 /**
@@ -44,9 +60,9 @@ export type UpdateLinkSchema = {
  * Schema for safe user item
  */
 export type SafeUserSchema = {
-  id: string;
-  email: string;
-  username: string;
+    id: string;
+    email: string;
+    username: string;
 };
 
 /**
@@ -60,144 +76,224 @@ export type LinksSchema = Array<LinkSchema>;
  * Schema for link item
  */
 export type LinkSchema = {
-  id: string;
-  url: string;
-  title?: string;
-  description?: string;
-  image?: string;
-  generated: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+    id: string;
+    url: string;
+    title?: string;
+    description?: string;
+    image?: string;
+    generated: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+/**
+ * TagsSchema
+ * Schema for tags
+ */
+export type TagsSchema = Array<TagSchema>;
+
+/**
+ * TagSchema
+ * Schema for tag item
+ */
+export type TagSchema = {
+    id: string;
+    name: string;
 };
 
 export type LinksControllerGetAllLinksData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/links";
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/links';
 };
 
 export type LinksControllerGetAllLinksResponses = {
-  /**
-   * Schema for links
-   */
-  200: LinksSchema;
+    /**
+     * Schema for links
+     */
+    200: LinksSchema;
 };
 
-export type LinksControllerGetAllLinksResponse =
-  LinksControllerGetAllLinksResponses[keyof LinksControllerGetAllLinksResponses];
+export type LinksControllerGetAllLinksResponse = LinksControllerGetAllLinksResponses[keyof LinksControllerGetAllLinksResponses];
 
 export type LinksControllerCreateLinkData = {
-  /**
-   * Schema for create link item
-   */
-  body: CreateLinkSchema;
-  path?: never;
-  query?: never;
-  url: "/links";
+    /**
+     * Schema for create link item
+     */
+    body: CreateLinkSchema;
+    path?: never;
+    query?: never;
+    url: '/links';
 };
 
 export type LinksControllerCreateLinkResponses = {
-  /**
-   * Schema for link item
-   */
-  200: LinkSchema;
+    /**
+     * Schema for link item
+     */
+    200: LinkSchema;
 };
 
-export type LinksControllerCreateLinkResponse =
-  LinksControllerCreateLinkResponses[keyof LinksControllerCreateLinkResponses];
+export type LinksControllerCreateLinkResponse = LinksControllerCreateLinkResponses[keyof LinksControllerCreateLinkResponses];
 
 export type LinksControllerDeleteLinkData = {
-  body?: never;
-  path: {
-    id: string;
-  };
-  query?: never;
-  url: "/links/{id}";
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/links/{id}';
 };
 
 export type LinksControllerDeleteLinkResponses = {
-  200: unknown;
+    200: unknown;
 };
 
 export type LinksControllerUpdateLinkData = {
-  /**
-   * Schema for update link item
-   */
-  body: UpdateLinkSchema;
-  path: {
-    id: string;
-  };
-  query?: never;
-  url: "/links/{id}";
+    /**
+     * Schema for update link item
+     */
+    body: UpdateLinkSchema;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/links/{id}';
 };
 
 export type LinksControllerUpdateLinkResponses = {
-  /**
-   * Schema for link item
-   */
-  200: LinkSchema;
+    /**
+     * Schema for link item
+     */
+    200: LinkSchema;
 };
 
-export type LinksControllerUpdateLinkResponse =
-  LinksControllerUpdateLinkResponses[keyof LinksControllerUpdateLinkResponses];
+export type LinksControllerUpdateLinkResponse = LinksControllerUpdateLinkResponses[keyof LinksControllerUpdateLinkResponses];
 
 export type AuthControllerSignInData = {
-  /**
-   * Schema for sign in
-   */
-  body: SignInSchema;
-  path?: never;
-  query?: never;
-  url: "/auth/login";
+    /**
+     * Schema for sign in
+     */
+    body: SignInSchema;
+    path?: never;
+    query?: never;
+    url: '/auth/login';
 };
 
 export type AuthControllerSignInResponses = {
-  201: unknown;
+    201: unknown;
 };
 
 export type AuthControllerRegisterData = {
-  /**
-   * Schema for register
-   */
-  body: RegisterSchema;
-  path?: never;
-  query?: never;
-  url: "/auth/register";
+    /**
+     * Schema for register
+     */
+    body: RegisterSchema;
+    path?: never;
+    query?: never;
+    url: '/auth/register';
 };
 
 export type AuthControllerRegisterResponses = {
-  201: unknown;
+    201: unknown;
 };
 
 export type AuthControllerLogoutData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/auth/logout";
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/auth/logout';
 };
 
 export type AuthControllerLogoutResponses = {
-  200: unknown;
+    200: unknown;
 };
 
 export type AuthControllerMeData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/auth/me";
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/auth/me';
 };
 
 export type AuthControllerMeResponses = {
-  /**
-   * Schema for safe user item
-   */
-  200: SafeUserSchema;
+    /**
+     * Schema for safe user item
+     */
+    200: SafeUserSchema;
 };
 
-export type AuthControllerMeResponse =
-  AuthControllerMeResponses[keyof AuthControllerMeResponses];
+export type AuthControllerMeResponse = AuthControllerMeResponses[keyof AuthControllerMeResponses];
+
+export type TagsControllerGetAllTagsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/tags';
+};
+
+export type TagsControllerGetAllTagsResponses = {
+    /**
+     * Schema for tags
+     */
+    200: TagsSchema;
+};
+
+export type TagsControllerGetAllTagsResponse = TagsControllerGetAllTagsResponses[keyof TagsControllerGetAllTagsResponses];
+
+export type TagsControllerCreateMultipleTagsData = {
+    /**
+     * Schema for create tag item
+     */
+    body: CreateTagsSchema;
+    path?: never;
+    query?: never;
+    url: '/tags';
+};
+
+export type TagsControllerCreateMultipleTagsResponses = {
+    /**
+     * Schema for tags
+     */
+    200: TagsSchema;
+};
+
+export type TagsControllerCreateMultipleTagsResponse = TagsControllerCreateMultipleTagsResponses[keyof TagsControllerCreateMultipleTagsResponses];
+
+export type TagsControllerDeleteTagData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/tags/{id}';
+};
+
+export type TagsControllerDeleteTagResponses = {
+    200: unknown;
+};
+
+export type TagsControllerUpdateTagData = {
+    /**
+     * Schema for update tag item
+     */
+    body: UpdateTagSchema;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/tags/{id}';
+};
+
+export type TagsControllerUpdateTagResponses = {
+    /**
+     * Schema for tag item
+     */
+    200: TagSchema;
+};
+
+export type TagsControllerUpdateTagResponse = TagsControllerUpdateTagResponses[keyof TagsControllerUpdateTagResponses];
 
 export type ClientOptions = {
-  baseUrl: string;
+    baseUrl: string;
 };

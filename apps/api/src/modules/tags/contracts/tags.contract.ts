@@ -29,7 +29,7 @@ export type CreateTagsInput = z.infer<typeof createTagsSchema>;
 export const updateTagSchema = z.object({
   name: z.string().min(2),
 }).openapi({
-  title: 'UpdateTagsSchema',
+  title: 'UpdateTagSchema',
   description: 'Schema for update tag item',
 });
 
