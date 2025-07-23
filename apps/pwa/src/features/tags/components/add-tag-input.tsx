@@ -1,6 +1,7 @@
 import { zCreateTagsSchema } from '@kinl/codegen-api';
 import { CircleQuestionMarkIcon, PlusIcon, XIcon } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import z, { ZodError } from 'zod';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,6 +17,8 @@ const i18nCreateTagsSchema = zCreateTagsSchema.extend({
 });
 
 export function AddTagInput({ onChange }: AddTagInputProps) {
+  const { t } = useTranslation();
+
   const [tag, setTag] = useState('');
   const [tagLists, setTagLists] = useState<string[]>([]);
 
@@ -47,7 +50,7 @@ export function AddTagInput({ onChange }: AddTagInputProps) {
     <div className="flex flex-col gap-4">
       <div className="flex gap-2">
         <Input
-          placeholder="Add a tag"
+          placeholder={t('tags.create_tags_input.placeholder')}
           value={tag}
           onChange={e => setTag(e.target.value)}
           onKeyDown={(e) => {
@@ -57,7 +60,7 @@ export function AddTagInput({ onChange }: AddTagInputProps) {
             }
           }}
         />
-        <Button variant="outline" size="icon" onClick={onAddTag}>
+        <Button variant="outline" size="icon" onClick={onAddTag} type="button">
           <PlusIcon />
         </Button>
       </div>
@@ -71,12 +74,12 @@ export function AddTagInput({ onChange }: AddTagInputProps) {
       <div className="flex flex-col gap-4">
         <Tooltip delayDuration={300}>
           <TooltipTrigger className="flex items-center gap-2 w-fit">
-            <p className="text-muted-foreground text-sm">New tags</p>
+            <p className="text-muted-foreground text-sm">{t('tags.create_tags_input.tag_list.title')}</p>
             <CircleQuestionMarkIcon className="text-muted-foreground" size={16} />
           </TooltipTrigger>
           <TooltipContent side="right" className="bg-card text-card-foreground">
             <p className="text-muted-foreground text-xs">
-              You can remove tags by clicking on it.
+              {t('tags.create_tags_input.tag_list.information')}
             </p>
           </TooltipContent>
         </Tooltip>

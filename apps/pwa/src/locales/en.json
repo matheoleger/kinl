@@ -38,6 +38,27 @@
     "error": {
       "title": "Error",
       "description": "Something went wrong. Please try again later."
+    },
+    "cancel": "Cancel"
+  },
+  "tags": {
+    "create_tags_dialog": {
+      "title": "Add tags",
+      "description": "Add tags to your collection of tags",
+      "form": {
+        "submit": "Add tags",
+        "success": "Successfully created tags",
+        "errors": {
+          "invalid_tags": "Invalid tags. Please enter a valid tags."
+        }
+      }
+    },
+    "create_tags_input": {
+      "placeholder": "Add a tag",
+      "tag_list": {
+        "title": "New tags",
+        "information": "You can remove tags by clicking on it."
+      }
     }
   },
   "links": {

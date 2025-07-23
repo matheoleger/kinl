@@ -55,5 +55,9 @@
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
+  "i18n-ally.localesPaths": [
+    "apps/pwa/src/locales"
+  ],
+  "i18n-ally.enabledFrameworks": ["react-i18next"]
 }

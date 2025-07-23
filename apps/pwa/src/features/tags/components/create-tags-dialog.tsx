@@ -1,11 +1,14 @@
 import type { CreateTagsSchema } from '@kinl/codegen-api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { zCreateTagsSchema } from '@kinl/codegen-api';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Form, FormField } from '@/components/ui/form';
+import { useCreateTags } from '../hooks/tags';
 import { AddTagInput } from './add-tag-input';
 
 interface CreateTagsDialogProps {
@@ -17,6 +20,11 @@ const i18nCreateTagsSchema = zCreateTagsSchema.extend({
 });
 
 export function CreateTagsDialog({ trigger }: CreateTagsDialogProps) {
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { mutate: createTags } = useCreateTags({ onSuccess: () => setIsOpen(false) });
+
   const form = useForm<CreateTagsSchema>({
     resolver: zodResolver(i18nCreateTagsSchema),
     defaultValues: {
@@ -27,18 +35,18 @@ export function CreateTagsDialog({ trigger }: CreateTagsDialogProps) {
   const onSubmit = (data: CreateTagsSchema) => {
     // eslint-disable-next-line no-console
     console.log(data);
-    // createTags(data);
+    createTags(data);
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         {trigger}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create tags</DialogTitle>
-          <DialogDescription>You can create multiple tags at once</DialogDescription>
+          <DialogTitle>{t('tags.create_tags_dialog.title')}</DialogTitle>
+          <DialogDescription>{t('tags.create_tags_dialog.description')}</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4">
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -56,10 +64,10 @@ export function CreateTagsDialog({ trigger }: CreateTagsDialogProps) {
             <DialogFooter className="pt-4">
               <DialogClose asChild>
                 <Button variant="outline">
-                  Cancel
+                  {t('common.cancel')}
                 </Button>
               </DialogClose>
-              <Button type="submit">Create tags</Button>
+              <Button type="submit">{t('tags.create_tags_dialog.form.submit')}</Button>
             </DialogFooter>
           </form>
         </div>
