@@ -1,17 +1,21 @@
+import { useState } from 'react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../ui/alert-dialog';
 
 interface AlertButtonProps {
-  children: React.ReactElement;
+  children: React.ReactNode;
   title: string;
   description: string;
   actionText?: string;
-  onConfirm: () => void;
+  onConfirm: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  asChild?: boolean;
 }
 
-export function AlertButton({ children, title, description, onConfirm }: AlertButtonProps) {
+export function AlertButton({ children, title, description, onConfirm, asChild = false, ...props }: AlertButtonProps & React.ComponentProps<'button'>) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger asChild={asChild} {...props}>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>

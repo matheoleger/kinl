@@ -1,5 +1,6 @@
-import { ChevronUpIcon, DoorOpenIcon, User2Icon } from 'lucide-react';
+import { ChevronUpIcon, DoorOpenIcon, LayoutDashboardIcon, TagsIcon, User2Icon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { NavLink, useLocation } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
@@ -12,11 +13,34 @@ export function MainSidebar() {
   const { user } = useAuth();
   const { mutate: logout } = useLogout();
 
+  const { pathname } = useLocation();
+
   return (
     <nav>
       <Sidebar variant="floating" className="w-72">
-        <SidebarHeader />
-        <SidebarContent />
+        <SidebarHeader>
+          <SidebarMenu className="pt-8">
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <NavLink to="/" className={`flex items-center gap-4 !text-base ${pathname === '/' && 'text-primary'}`}>
+                  <LayoutDashboardIcon />
+                  <span>{t('common.navigation.dashboard')}</span>
+                </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <NavLink to="/tags" className={`flex items-center gap-4 !text-base ${pathname === '/tags' && 'text-primary'}`}>
+                  <TagsIcon />
+                  <span>{t('common.navigation.tags')}</span>
+                </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarHeader>
+        <SidebarContent>
+          <hr className="border-border mx-6 my-2" />
+        </SidebarContent>
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>

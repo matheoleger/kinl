@@ -40,7 +40,7 @@ export function LinkSheet({ link }: LinkSheetProps) {
               linkId={link.id}
               defaultValues={link}
             />
-            <AlertButton title="Delete link" description="Are you sure you want to delete this link?" onConfirm={() => deleteLink(link.id)}>
+            <AlertButton title="Delete link" description="Are you sure you want to delete this link?" onConfirm={() => deleteLink(link.id)} asChild>
               <Button variant="secondary" size="icon">
                 <Trash2Icon className="text-destructive" />
               </Button>
