@@ -139,6 +139,11 @@ export class LinksService {
             data: tags.map(t => ({ tagId: t.id })),
             skipDuplicates: true,
           },
+          deleteMany: {
+            tagId: {
+              notIn: tags.map(t => t.id),
+            },
+          },
         },
       },
       include: {

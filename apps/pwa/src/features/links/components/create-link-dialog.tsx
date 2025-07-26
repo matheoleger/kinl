@@ -30,7 +30,7 @@ export function CreateLinkDialog({ trigger }: CreateLinkDialogProps) {
   const { t } = useTranslation();
 
   const { data: tags } = useTags();
-  const { mutate: createLink } = useCreateLink({
+  const { mutate: createLink, isPending } = useCreateLink({
     onSuccess: () => setOpen(false),
   });
 
@@ -118,7 +118,7 @@ export function CreateLinkDialog({ trigger }: CreateLinkDialogProps) {
                 <DialogClose asChild>
                   <Button variant="outline">{t('links.create_link_dialog.form.cancel')}</Button>
                 </DialogClose>
-                <Button type="submit">{t('links.create_link_dialog.form.submit')}</Button>
+                <Button type="submit" disabled={isPending}>{t('links.create_link_dialog.form.submit')}</Button>
               </DialogFooter>
             </form>
           </Form>

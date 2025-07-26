@@ -51,7 +51,7 @@ export function UpdateLinkDialog({
 
   const { data: tags } = useTags();
 
-  const { mutate: updateLink } = useUpdateLink({
+  const { mutate: updateLink, isPending } = useUpdateLink({
     onSuccess: () => setOpen(false),
   });
 
@@ -161,7 +161,7 @@ export function UpdateLinkDialog({
                     {t('links.update_link_dialog.form.cancel')}
                   </Button>
                 </DialogClose>
-                <Button type="submit">
+                <Button type="submit" disabled={isPending}>
                   {t('links.update_link_dialog.form.submit')}
                 </Button>
               </DialogFooter>

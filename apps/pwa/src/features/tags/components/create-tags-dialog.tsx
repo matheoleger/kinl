@@ -23,7 +23,7 @@ export function CreateTagsDialog({ trigger }: CreateTagsDialogProps) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { mutate: createTags } = useCreateTags({ onSuccess: () => setIsOpen(false) });
+  const { mutate: createTags, isPending } = useCreateTags({ onSuccess: () => setIsOpen(false) });
 
   const form = useForm<CreateTagsSchema>({
     resolver: zodResolver(i18nCreateTagsSchema),
@@ -67,7 +67,7 @@ export function CreateTagsDialog({ trigger }: CreateTagsDialogProps) {
                   {t('common.cancel')}
                 </Button>
               </DialogClose>
-              <Button type="submit">{t('tags.create_tags_dialog.form.submit')}</Button>
+              <Button type="submit" disabled={isPending}>{t('tags.create_tags_dialog.form.submit')}</Button>
             </DialogFooter>
           </form>
         </div>
