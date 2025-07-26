@@ -38,44 +38,6 @@ export const RegisterSchemaSchema = {
     description: 'Schema for register'
 } as const;
 
-export const CreateLinkSchemaSchema = {
-    type: ['object'],
-    properties: {
-        url: {
-            type: ['string'],
-            format: 'uri'
-        },
-        title: {
-            type: ['string']
-        },
-        description: {
-            type: ['string']
-        }
-    },
-    required: ['url'],
-    title: 'CreateLinkSchema',
-    description: 'Schema for create link item'
-} as const;
-
-export const UpdateLinkSchemaSchema = {
-    type: ['object'],
-    properties: {
-        url: {
-            type: ['string'],
-            format: 'uri'
-        },
-        title: {
-            type: ['string'],
-            minLength: 2
-        },
-        description: {
-            type: ['string']
-        }
-    },
-    title: 'UpdateLinkSchema',
-    description: 'Schema for update link item'
-} as const;
-
 export const CreateTagsSchemaSchema = {
     type: ['object'],
     properties: {
@@ -105,6 +67,65 @@ export const UpdateTagSchemaSchema = {
     description: 'Schema for update tag item'
 } as const;
 
+export const CreateLinkSchemaSchema = {
+    type: ['object'],
+    properties: {
+        url: {
+            type: ['string'],
+            format: 'uri'
+        },
+        title: {
+            type: ['string']
+        },
+        description: {
+            type: ['string']
+        },
+        tags: {
+            type: ['array'],
+            items: {
+                type: ['string']
+            }
+        }
+    },
+    required: ['url'],
+    title: 'CreateLinkSchema',
+    description: 'Schema for create link item'
+} as const;
+
+export const UpdateLinkSchemaSchema = {
+    type: ['object'],
+    properties: {
+        url: {
+            type: ['string'],
+            format: 'uri'
+        },
+        title: {
+            type: ['string'],
+            minLength: 2
+        },
+        description: {
+            type: ['string']
+        },
+        tags: {
+            type: ['array'],
+            items: {
+                type: ['string']
+            }
+        }
+    },
+    title: 'UpdateLinkSchema',
+    description: 'Schema for update link item'
+} as const;
+
+export const FilterQueryStringSchemaSchema = {
+    type: ['string'],
+    title: 'FilterQueryStringSchema',
+    description: `Filtering query string, in the format of "property:rule[:value];property:rule[:value];..."
+    <br> Available rules: eq, neq, gt, gte, lt, lte, like, nlike, in, nin, isnull, isnotnull 
+    <br> Available properties: tags`,
+    example: 'name:eq:John;age:gt:30'
+} as const;
+
 export const SafeUserSchemaSchema = {
     type: ['object'],
     properties: {
@@ -122,6 +143,41 @@ export const SafeUserSchemaSchema = {
     required: ['id', 'email', 'username'],
     title: 'SafeUserSchema',
     description: 'Schema for safe user item'
+} as const;
+
+export const TagsSchemaSchema = {
+    type: ['array'],
+    items: {
+        type: ['object'],
+        properties: {
+            id: {
+                type: ['string']
+            },
+            name: {
+                type: ['string']
+            }
+        },
+        required: ['id', 'name'],
+        title: 'TagSchema',
+        description: 'Schema for tag item'
+    },
+    title: 'TagsSchema',
+    description: 'Schema for tags'
+} as const;
+
+export const TagSchemaSchema = {
+    type: ['object'],
+    properties: {
+        id: {
+            type: ['string']
+        },
+        name: {
+            type: ['string']
+        }
+    },
+    required: ['id', 'name'],
+    title: 'TagSchema',
+    description: 'Schema for tag item'
 } as const;
 
 export const LinksSchemaSchema = {
@@ -151,6 +207,25 @@ export const LinkSchemaSchema = {
         image: {
             type: ['string']
         },
+        tags: {
+            type: ['array'],
+            items: {
+                type: ['object'],
+                properties: {
+                    id: {
+                        type: ['string']
+                    },
+                    name: {
+                        type: ['string']
+                    }
+                },
+                required: ['id', 'name'],
+                title: 'TagSchema',
+                description: 'Schema for tag item'
+            },
+            title: 'TagsSchema',
+            description: 'Schema for tags'
+        },
         generated: {
             type: ['boolean']
         },
@@ -166,28 +241,4 @@ export const LinkSchemaSchema = {
     required: ['id', 'url', 'generated', 'createdAt', 'updatedAt'],
     title: 'LinkSchema',
     description: 'Schema for link item'
-} as const;
-
-export const TagsSchemaSchema = {
-    type: ['array'],
-    items: {
-        '$ref': '#/components/schemas/TagSchema'
-    },
-    title: 'TagsSchema',
-    description: 'Schema for tags'
-} as const;
-
-export const TagSchemaSchema = {
-    type: ['object'],
-    properties: {
-        id: {
-            type: ['string']
-        },
-        name: {
-            type: ['string']
-        }
-    },
-    required: ['id', 'name'],
-    title: 'TagSchema',
-    description: 'Schema for tag item'
 } as const;

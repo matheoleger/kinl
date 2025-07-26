@@ -1,28 +1,36 @@
 import { zCreateTagsSchema } from '@kinl/codegen-api';
 import { CircleQuestionMarkIcon, PlusIcon, XIcon } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import z, { ZodError } from 'zod';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
 import { Input } from '@/components/ui/input';
+import { Popover, PopoverAnchor, PopoverContent } from '@/components/ui/popover';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface AddTagInputProps {
   onChange: (updatedTagLists: string[]) => void;
+  autoCompleteList?: string[];
+  defaultValues?: string[];
 }
 
 const i18nCreateTagsSchema = zCreateTagsSchema.extend({
-  names: z.array(z.string().min(2, { message: 'name_must_be_longer_than_2' })),
+  names: z.array(z.string().min(2, { message: 'tags.create_tags_input.errors.name_must_be_longer_than_2' })),
 });
 
-export function AddTagInput({ onChange }: AddTagInputProps) {
+export function AddTagInput({ onChange, autoCompleteList, defaultValues }: AddTagInputProps) {
   const { t } = useTranslation();
 
+  const [popoverOpen, setPopoverOpen] = useState(false);
   const [tag, setTag] = useState('');
-  const [tagLists, setTagLists] = useState<string[]>([]);
+  const [tagLists, setTagLists] = useState<string[]>(defaultValues ?? []);
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // filter autoCompleteList to remove already added tags and input content (tag)
+  const filteredAutoCompleteList = autoCompleteList?.filter(t => !tagLists.includes(t) && t.match(new RegExp(tag, 'i')));
 
   const onAddTag = () => {
     if (!handleZodVerification(tag, setErrorMessage)) {
@@ -46,28 +54,68 @@ export function AddTagInput({ onChange }: AddTagInputProps) {
     onChange(filteredTagLists);
   };
 
+  const comboboxListRef = React.useRef<HTMLDivElement>(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex gap-2">
-        <Input
-          placeholder={t('tags.create_tags_input.placeholder')}
-          value={tag}
-          onChange={e => setTag(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              onAddTag();
-            }
-          }}
-        />
-        <Button variant="outline" size="icon" onClick={onAddTag} type="button">
-          <PlusIcon />
-        </Button>
-      </div>
+      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+        <PopoverAnchor>
+          <div className="flex gap-2">
+            <Input
+              ref={inputRef}
+              placeholder={t('tags.create_tags_input.placeholder')}
+              value={tag}
+              onChange={(e) => {
+                setPopoverOpen(!!e.target.value && !!filteredAutoCompleteList?.length);
+                setTag(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  onAddTag();
+                }
+                else if (e.key === 'ArrowDown') {
+                  e.preventDefault();
+                  comboboxListRef.current?.focus();
+                  setPopoverOpen(true);
+                }
+              }}
+            />
+            <Button variant="outline" size="icon" onClick={onAddTag} type="button">
+              <PlusIcon />
+            </Button>
+          </div>
+        </PopoverAnchor>
+        <PopoverContent className="p-1" side="bottom" align="start" onOpenAutoFocus={e => e.preventDefault()}>
+          <Command>
+            <CommandList ref={comboboxListRef}>
+              <CommandGroup>
+                {
+                  filteredAutoCompleteList?.map(tag => (
+                    <CommandItem
+                      key={tag}
+                      onSelect={() => {
+                        setTag(tag);
+                        setPopoverOpen(false);
+                        inputRef.current?.focus();
+                      }}
+                    >
+                      <span className="w-full text-start">
+                        {tag}
+                      </span>
+                    </CommandItem>
+                  ))
+                }
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
       {
         errorMessage && (
           <p className="text-destructive text-sm">
-            {errorMessage}
+            {t(errorMessage)}
           </p>
         )
       }

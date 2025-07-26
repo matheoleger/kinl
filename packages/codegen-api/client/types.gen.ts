@@ -20,26 +20,6 @@ export type RegisterSchema = {
 };
 
 /**
- * CreateLinkSchema
- * Schema for create link item
- */
-export type CreateLinkSchema = {
-    url: string;
-    title?: string;
-    description?: string;
-};
-
-/**
- * UpdateLinkSchema
- * Schema for update link item
- */
-export type UpdateLinkSchema = {
-    url?: string;
-    title?: string;
-    description?: string;
-};
-
-/**
  * CreateTagsSchema
  * Schema for create tag item
  */
@@ -56,6 +36,36 @@ export type UpdateTagSchema = {
 };
 
 /**
+ * CreateLinkSchema
+ * Schema for create link item
+ */
+export type CreateLinkSchema = {
+    url: string;
+    title?: string;
+    description?: string;
+    tags?: Array<string>;
+};
+
+/**
+ * UpdateLinkSchema
+ * Schema for update link item
+ */
+export type UpdateLinkSchema = {
+    url?: string;
+    title?: string;
+    description?: string;
+    tags?: Array<string>;
+};
+
+/**
+ * FilterQueryStringSchema
+ * Filtering query string, in the format of "property:rule[:value];property:rule[:value];..."
+ * <br> Available rules: eq, neq, gt, gte, lt, lte, like, nlike, in, nin, isnull, isnotnull
+ * <br> Available properties: tags
+ */
+export type FilterQueryStringSchema = string;
+
+/**
  * SafeUserSchema
  * Schema for safe user item
  */
@@ -63,6 +73,24 @@ export type SafeUserSchema = {
     id: string;
     email: string;
     username: string;
+};
+
+/**
+ * TagsSchema
+ * Schema for tags
+ */
+export type TagsSchema = Array<{
+    id: string;
+    name: string;
+}>;
+
+/**
+ * TagSchema
+ * Schema for tag item
+ */
+export type TagSchema = {
+    id: string;
+    name: string;
 };
 
 /**
@@ -81,30 +109,30 @@ export type LinkSchema = {
     title?: string;
     description?: string;
     image?: string;
+    /**
+     * TagsSchema
+     * Schema for tags
+     */
+    tags?: Array<{
+        id: string;
+        name: string;
+    }>;
     generated: boolean;
     createdAt: Date;
     updatedAt: Date;
 };
 
-/**
- * TagsSchema
- * Schema for tags
- */
-export type TagsSchema = Array<TagSchema>;
-
-/**
- * TagSchema
- * Schema for tag item
- */
-export type TagSchema = {
-    id: string;
-    name: string;
-};
-
 export type LinksControllerGetAllLinksData = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: {
+        /**
+         * Filtering query string, in the format of "property:rule[:value];property:rule[:value];..."
+         * <br> Available rules: eq, neq, gt, gte, lt, lte, like, nlike, in, nin, isnull, isnotnull
+         * <br> Available properties: tags
+         */
+        filter?: FilterQueryStringSchema;
+    };
     url: '/links';
 };
 

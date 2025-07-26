@@ -1,7 +1,7 @@
 import type { LinkSchema } from '@kinl/codegen-api';
 import fallbackImage from '@/assets/images/fallback-img.webp';
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { LinkTagsList } from './link-tags-list';
 
 interface LinkCardProps {
   link: LinkSchema;
@@ -31,18 +31,7 @@ export function LinkCard({ link, onClick }: LinkCardProps) {
         </CardContent>
         <CardFooter className="flex-col items-start gap-2">
           <h2 className="text-lg font-bold line-clamp-3">{link.title}</h2>
-          <ul className="flex flex-wrap gap-2">
-            {/* TODO: add tags */}
-            <li>
-              <Badge variant="secondary" className="text-xs px-2">tag</Badge>
-            </li>
-            <li>
-              <Badge variant="secondary" className="text-xs px-2">tag 2</Badge>
-            </li>
-            <li>
-              <Badge variant="secondary" className="text-xs px-2">tag 3</Badge>
-            </li>
-          </ul>
+          <LinkTagsList tags={link.tags ?? []} />
         </CardFooter>
       </Card>
     </button>

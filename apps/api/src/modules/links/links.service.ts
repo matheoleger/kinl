@@ -1,15 +1,49 @@
 import { ForbiddenException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import urlMetadata from 'url-metadata';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateLinkInput, UpdateLinkInput } from './contracts/links.contract';
+import { TagsService } from '../tags/tags.service';
+import { CreateLinkInput, LinksFiltering, UpdateLinkInput } from './contracts/links.contract';
+import { LinksHelper } from './links.helper';
 
 @Injectable()
 export class LinksService {
   constructor(
     private readonly prisma: PrismaService,
+    private readonly tagsService: TagsService,
+    private readonly linksHelper: LinksHelper,
   ) {}
 
-  async getAllLinksFromUser(userId: string) {
+  async getAllLinksFromUser(userId: string, filter?: LinksFiltering) {
+    const filterByTags = filter?.filter(f => f.property === 'tags').map((f) => {
+      return {
+        tags: {
+          some: {
+            tag: {
+              name: f.value,
+            },
+          },
+        },
+      };
+    });
+
+    const links = await this.prisma.link.findMany({
+      where: {
+        ownerId: userId,
+        OR: filterByTags,
+      },
+      include: {
+        tags: {
+          select: {
+            tag: true,
+          },
+        },
+      },
+    });
+
+    const formattedLinks = this.linksHelper.mapLinksToSchema(links);
+
+    return formattedLinks;
+
     return this.prisma.link.findMany({
       where: {
         ownerId: userId,
@@ -33,14 +67,34 @@ export class LinksService {
             image: '',
           };
 
-      return this.prisma.link.create({
+      const { tags: tagsNames, ...data } = input;
+
+      // createMultipleTags returns the created tags and already created tags with same name as input
+      const tags = tagsNames ? await this.tagsService.createMultipleTags({ names: tagsNames }, userId) : [];
+
+      const createdLink = await this.prisma.link.create({
         data: {
           ...formattedMetadata,
-          ...input,
+          ...data,
           generated: false,
           ownerId: userId,
+          tags: {
+            createMany: {
+              data: tags.map(t => ({ tagId: t.id })),
+              skipDuplicates: true,
+            },
+          },
+        },
+        include: {
+          tags: {
+            select: {
+              tag: true,
+            },
+          },
         },
       });
+
+      return this.linksHelper.mapLinkToSchema(createdLink);
     }
     catch {
       throw new InternalServerErrorException('error_creating_link');
@@ -69,14 +123,34 @@ export class LinksService {
       throw new ForbiddenException('you_cannot_update_this_link');
     }
 
-    return this.prisma.link.update({
+    const { tags: tagsNames, ...data } = input;
+
+    // createMultipleTags returns the created tags and already created tags with same name as input
+    const tags = tagsNames ? await this.tagsService.createMultipleTags({ names: tagsNames }, userId) : [];
+
+    const updatedLink = await this.prisma.link.update({
       where: {
         id: linkId,
       },
       data: {
-        ...input,
+        ...data,
+        tags: {
+          createMany: {
+            data: tags.map(t => ({ tagId: t.id })),
+            skipDuplicates: true,
+          },
+        },
+      },
+      include: {
+        tags: {
+          select: {
+            tag: true,
+          },
+        },
       },
     });
+
+    return this.linksHelper.mapLinkToSchema(updatedLink);
   }
 
   async deleteLink(linkId: string, userId: string) {

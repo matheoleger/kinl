@@ -12,6 +12,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/
 import { I18nFormMessage } from '@/components/ui/i18n-form-message';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { AddTagInput } from '@/features/tags/components/add-tag-input';
+import { useTags } from '@/features/tags/hooks/tags';
 import { useCreateLink } from '../hooks/links';
 
 interface CreateLinkDialogProps {
@@ -27,6 +29,7 @@ export function CreateLinkDialog({ trigger }: CreateLinkDialogProps) {
 
   const { t } = useTranslation();
 
+  const { data: tags } = useTags();
   const { mutate: createLink } = useCreateLink({
     onSuccess: () => setOpen(false),
   });
@@ -89,6 +92,19 @@ export function CreateLinkDialog({ trigger }: CreateLinkDialogProps) {
                     <FormLabel>{t('links.create_link_dialog.form.description')}</FormLabel>
                     <FormControl>
                       <Textarea {...field} placeholder={t('links.create_link_dialog.form.description')} />
+                    </FormControl>
+                    <I18nFormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('links.create_link_dialog.form.description')}</FormLabel>
+                    <FormControl>
+                      <AddTagInput onChange={field.onChange} autoCompleteList={tags?.map(t => t.name)} />
                     </FormControl>
                     <I18nFormMessage />
                   </FormItem>

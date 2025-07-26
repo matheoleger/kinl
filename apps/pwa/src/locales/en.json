@@ -60,8 +60,11 @@
     "create_tags_input": {
       "placeholder": "Add a tag",
       "tag_list": {
-        "title": "New tags",
+        "title": "Tags",
         "information": "You can remove tags by clicking on it."
+      },
+      "errors": {
+        "name_must_be_longer_than_2": "Name must be at least 2 characters long"
       }
     },
     "card": {
@@ -117,7 +120,8 @@
         "errors": {
           "invalid_url": "Please enter a valid URL.",
           "invalid_title": "Length must be at least 2 characters."
-        }
+        },
+        "tags": "New tag"
       }
     },
     "delete": {

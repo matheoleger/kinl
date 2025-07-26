@@ -22,26 +22,6 @@ export const zRegisterSchema = z.object({
 });
 
 /**
- * CreateLinkSchema
- * Schema for create link item
- */
-export const zCreateLinkSchema = z.object({
-    url: z.string().url(),
-    title: z.string().optional(),
-    description: z.string().optional()
-});
-
-/**
- * UpdateLinkSchema
- * Schema for update link item
- */
-export const zUpdateLinkSchema = z.object({
-    url: z.string().url().optional(),
-    title: z.string().min(2).optional(),
-    description: z.string().optional()
-});
-
-/**
  * CreateTagsSchema
  * Schema for create tag item
  */
@@ -58,6 +38,36 @@ export const zUpdateTagSchema = z.object({
 });
 
 /**
+ * CreateLinkSchema
+ * Schema for create link item
+ */
+export const zCreateLinkSchema = z.object({
+    url: z.string().url(),
+    title: z.string().optional(),
+    description: z.string().optional(),
+    tags: z.array(z.string()).optional()
+});
+
+/**
+ * UpdateLinkSchema
+ * Schema for update link item
+ */
+export const zUpdateLinkSchema = z.object({
+    url: z.string().url().optional(),
+    title: z.string().min(2).optional(),
+    description: z.string().optional(),
+    tags: z.array(z.string()).optional()
+});
+
+/**
+ * FilterQueryStringSchema
+ * Filtering query string, in the format of "property:rule[:value];property:rule[:value];..."
+ * <br> Available rules: eq, neq, gt, gte, lt, lte, like, nlike, in, nin, isnull, isnotnull
+ * <br> Available properties: tags
+ */
+export const zFilterQueryStringSchema = z.string();
+
+/**
  * SafeUserSchema
  * Schema for safe user item
  */
@@ -65,6 +75,24 @@ export const zSafeUserSchema = z.object({
     id: z.string(),
     email: z.string().email(),
     username: z.string()
+});
+
+/**
+ * TagsSchema
+ * Schema for tags
+ */
+export const zTagsSchema = z.array(z.object({
+    id: z.string(),
+    name: z.string()
+}));
+
+/**
+ * TagSchema
+ * Schema for tag item
+ */
+export const zTagSchema = z.object({
+    id: z.string(),
+    name: z.string()
 });
 
 /**
@@ -77,6 +105,10 @@ export const zLinkSchema = z.object({
     title: z.string().optional(),
     description: z.string().optional(),
     image: z.string().optional(),
+    tags: z.array(z.object({
+        id: z.string(),
+        name: z.string()
+    })).optional(),
     generated: z.boolean(),
     createdAt: z.string().datetime(),
     updatedAt: z.string().datetime()
@@ -88,26 +120,13 @@ export const zLinkSchema = z.object({
  */
 export const zLinksSchema = z.array(zLinkSchema);
 
-/**
- * TagSchema
- * Schema for tag item
- */
-export const zTagSchema = z.object({
-    id: z.string(),
-    name: z.string()
-});
-
-/**
- * TagsSchema
- * Schema for tags
- */
-export const zTagsSchema = z.array(zTagSchema);
-
 export const zLinksControllerGetAllLinksData = z.object({
     body: z.never().optional(),
     headers: z.never().optional(),
     path: z.never().optional(),
-    query: z.never().optional()
+    query: z.object({
+        filter: zFilterQueryStringSchema.optional()
+    }).optional()
 });
 
 /**
