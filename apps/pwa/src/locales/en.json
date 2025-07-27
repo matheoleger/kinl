@@ -42,7 +42,12 @@
     "cancel": "Cancel",
     "navigation": {
       "dashboard": "Dashboard",
-      "tags": "Tags"
+      "tags": "Tags",
+      "group": {
+        "pinned_tags": {
+          "label": "Pinned tags"
+        }
+      }
     }
   },
   "tags": {
@@ -87,6 +92,14 @@
             }
           }
         }
+      }
+    },
+    "pinned_tag": {
+      "unpin": {
+        "success": "This tag is not in your pinned tags anymore."
+      },
+      "pin": {
+        "success": "Tag successfully pinned."
       }
     }
   },

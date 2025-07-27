@@ -1,11 +1,12 @@
 import type { TagSchema } from '@kinl/codegen-api';
-import { Edit2Icon, EllipsisVerticalIcon, EyeIcon, Trash2Icon } from 'lucide-react';
+import { Edit2Icon, EllipsisVerticalIcon, EyeIcon, PinIcon, PinOffIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useCreatePinnedTag, useDeletePinnedTag, usePinnedTags } from '../hooks/pinned-tags';
 import { useDeleteTag } from '../hooks/tags';
 import { EditTagDialog } from './edit-tag-dialog';
 
@@ -13,6 +14,9 @@ export function TagActionDropdown({ tag }: { tag: TagSchema }) {
   const { t } = useTranslation();
 
   const { mutate: deleteTag } = useDeleteTag();
+  const { mutate: createPinnedTag } = useCreatePinnedTag();
+  const { mutate: deletePinnedTag } = useDeletePinnedTag();
+  const { data: pinnedTags } = usePinnedTags();
 
   const [alertDeleteOpen, setAlertDeleteOpen] = useState(false);
   const [alertEditOpen, setAlertEditOpen] = useState(false);
@@ -42,12 +46,27 @@ export function TagActionDropdown({ tag }: { tag: TagSchema }) {
               View
             </NavLink>
           </DropdownMenuItem>
+          {
+            !pinnedTags?.some(t => t.id === tag.id)
+              ? (
+                  <DropdownMenuItem onSelect={() => createPinnedTag(tag.id)}>
+                    <PinIcon />
+                    Pin tag
+                  </DropdownMenuItem>
+                )
+              : (
+                  <DropdownMenuItem onSelect={() => deletePinnedTag(tag.id)}>
+                    <PinOffIcon />
+                    Unpin tag
+                  </DropdownMenuItem>
+                )
+          }
           <DropdownMenuItem onSelect={() => setAlertEditOpen(true)}>
             <Edit2Icon />
             Edit
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={() => setAlertDeleteOpen(true)} className="text-destructive">
-            <Trash2Icon />
+            <Trash2Icon className="text-destructive" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

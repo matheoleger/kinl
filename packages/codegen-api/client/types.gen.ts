@@ -288,6 +288,53 @@ export type TagsControllerCreateMultipleTagsResponses = {
 
 export type TagsControllerCreateMultipleTagsResponse = TagsControllerCreateMultipleTagsResponses[keyof TagsControllerCreateMultipleTagsResponses];
 
+export type TagsControllerGetAllPinnedTagsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/tags/pinned';
+};
+
+export type TagsControllerGetAllPinnedTagsResponses = {
+    /**
+     * Schema for tags
+     */
+    200: TagsSchema;
+};
+
+export type TagsControllerGetAllPinnedTagsResponse = TagsControllerGetAllPinnedTagsResponses[keyof TagsControllerGetAllPinnedTagsResponses];
+
+export type TagsControllerDeletePinnedTagData = {
+    body?: never;
+    path: {
+        tagId: string;
+    };
+    query?: never;
+    url: '/tags/{tagId}/pin';
+};
+
+export type TagsControllerDeletePinnedTagResponses = {
+    200: unknown;
+};
+
+export type TagsControllerCreatePinnedTagData = {
+    body?: never;
+    path: {
+        tagId: string;
+    };
+    query?: never;
+    url: '/tags/{tagId}/pin';
+};
+
+export type TagsControllerCreatePinnedTagResponses = {
+    /**
+     * Schema for tag item
+     */
+    200: TagSchema;
+};
+
+export type TagsControllerCreatePinnedTagResponse = TagsControllerCreatePinnedTagResponses[keyof TagsControllerCreatePinnedTagResponses];
+
 export type TagsControllerDeleteTagData = {
     body?: never;
     path: {

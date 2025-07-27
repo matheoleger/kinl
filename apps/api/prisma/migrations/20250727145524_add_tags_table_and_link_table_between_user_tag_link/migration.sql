@@ -23,6 +23,7 @@ CREATE TABLE "LinkTag" (
 CREATE TABLE "PinnedTag" (
     "userId" TEXT NOT NULL,
     "tagId" TEXT NOT NULL,
+    "order" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

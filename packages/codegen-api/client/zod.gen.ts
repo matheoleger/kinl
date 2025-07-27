@@ -226,6 +226,41 @@ export const zTagsControllerCreateMultipleTagsData = z.object({
  */
 export const zTagsControllerCreateMultipleTagsResponse = zTagsSchema;
 
+export const zTagsControllerGetAllPinnedTagsData = z.object({
+    body: z.never().optional(),
+    headers: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
+/**
+ * Schema for tags
+ */
+export const zTagsControllerGetAllPinnedTagsResponse = zTagsSchema;
+
+export const zTagsControllerDeletePinnedTagData = z.object({
+    body: z.never().optional(),
+    headers: z.never().optional(),
+    path: z.object({
+        tagId: z.string()
+    }),
+    query: z.never().optional()
+});
+
+export const zTagsControllerCreatePinnedTagData = z.object({
+    body: z.never().optional(),
+    headers: z.never().optional(),
+    path: z.object({
+        tagId: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * Schema for tag item
+ */
+export const zTagsControllerCreatePinnedTagResponse = zTagSchema;
+
 export const zTagsControllerDeleteTagData = z.object({
     body: z.never().optional(),
     headers: z.never().optional(),

@@ -18,9 +18,19 @@ export class TagsController {
     return this.tagsService.getAllTags(user.id);
   }
 
+  @TypedRoute.Get('pinned', tagsSchema)
+  getAllPinnedTags(@CurrentUser() user: User) {
+    return this.tagsService.getAllPinnedTags(user.id);
+  }
+
   @TypedRoute.Post('', tagsSchema)
   createMultipleTags(@CurrentUser() user: User, @TypedBody(createTagsSchema) body: CreateTagsInput) {
     return this.tagsService.createMultipleTags(body, user.id);
+  }
+
+  @TypedRoute.Post(':tagId/pin', tagSchema)
+  createPinnedTag(@CurrentUser() user: User, @TypedParam('tagId') tagId: string) {
+    return this.tagsService.createPinnedTag(tagId, user.id);
   }
 
   @TypedRoute.Delete(':id')
@@ -32,6 +42,11 @@ export class TagsController {
     }
 
     return this.tagsService.deleteTag(tagId);
+  }
+
+  @TypedRoute.Delete(':tagId/pin')
+  deletePinnedTag(@CurrentUser() user: User, @TypedParam('tagId') tagId: string) {
+    return this.tagsService.deletePinnedTag(tagId, user.id);
   }
 
   @TypedRoute.Patch(':id', tagSchema)

@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTagsInput, UpdateTagInput } from './contracts/tags.contract';
+import { TagsHelper } from './tags.helper';
 
 @Injectable()
 export class TagsService {
   constructor(
     private readonly prisma: PrismaService,
+    private readonly tagsHelper: TagsHelper,
   ) {}
 
   async getAllTags(userId: string) {
     return this.prisma.tag.findMany({ where: { ownerId: userId } });
+  }
+
+  async getAllPinnedTags(userId: string) {
+    const pinnedTags = await this.prisma.pinnedTag.findMany({ where: { userId }, select: { tag: true } });
+
+    return this.tagsHelper.mapPinnedTagsToSchema(pinnedTags);
   }
 
   async createMultipleTags(input: CreateTagsInput, userId: string) {
@@ -32,10 +40,42 @@ export class TagsService {
     return createdTags;
   }
 
+  async createPinnedTag(tagId: string, userId: string) {
+    const pinnedTagCount = await this.prisma.pinnedTag.count({
+      where: {
+        userId,
+      },
+    });
+
+    const pinnedTag = await this.prisma.pinnedTag.create({
+      data: {
+        tagId,
+        userId,
+        order: pinnedTagCount + 1,
+      },
+      select: {
+        tag: true,
+      },
+    });
+
+    return this.tagsHelper.mapPinnedTagToSchema(pinnedTag);
+  }
+
   async deleteTag(tagId: string) {
     return this.prisma.tag.delete({
       where: {
         id: tagId,
+      },
+    });
+  }
+
+  async deletePinnedTag(tagId: string, userId: string) {
+    return this.prisma.pinnedTag.delete({
+      where: {
+        userId_tagId: {
+          userId,
+          tagId,
+        },
       },
     });
   }

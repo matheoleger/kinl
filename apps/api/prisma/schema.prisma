@@ -75,6 +75,7 @@ model LinkTag {
 model PinnedTag {
   userId    String
   tagId     String
+  order     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

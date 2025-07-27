@@ -3,15 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { useAuth } from '@/contexts/auth/auth-provider';
 import { useLogout } from '@/features/auth/hooks/auth';
+import { usePinnedTags } from '@/features/tags/hooks/pinned-tags';
 
 export function MainSidebar() {
   const { t } = useTranslation();
 
   const { user } = useAuth();
   const { mutate: logout } = useLogout();
+  const { data: pinnedTags } = usePinnedTags();
 
   const { pathname } = useLocation();
 
@@ -40,6 +42,24 @@ export function MainSidebar() {
         </SidebarHeader>
         <SidebarContent>
           <hr className="border-border mx-6 my-2" />
+          <SidebarGroup>
+            <SidebarGroupLabel>{t('common.navigation.group.pinned_tags.label')}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {
+                  pinnedTags?.map(tag => (
+                    <SidebarMenuItem key={tag.id}>
+                      <SidebarMenuButton asChild>
+                        <NavLink to={`/links?tags=${tag.name}`}>
+                          {tag.name}
+                        </NavLink>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))
+                }
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
           <SidebarMenu>
