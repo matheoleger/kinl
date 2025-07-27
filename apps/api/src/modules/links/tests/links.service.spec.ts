@@ -1,5 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { TagsHelper } from 'src/modules/tags/tags.helper';
+import { TagsService } from 'src/modules/tags/tags.service';
+import { LinksHelper } from '../links.helper';
 import { LinksService } from '../links.service';
 
 describe('linksService', () => {
@@ -7,7 +10,7 @@ describe('linksService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [LinksService, { provide: PrismaService, useValue: {} }],
+      providers: [LinksService, TagsService, TagsHelper, LinksHelper, { provide: PrismaService, useValue: {} }],
     }).compile();
 
     service = module.get<LinksService>(LinksService);
