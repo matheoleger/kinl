@@ -12,6 +12,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/
 import { I18nFormMessage } from '@/components/ui/i18n-form-message';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { AddTagInput } from '@/features/tags/components/add-tag-input';
+import { useTags } from '@/features/tags/hooks/tags';
 import { useCreateLink } from '../hooks/links';
 
 interface CreateLinkDialogProps {
@@ -27,7 +29,8 @@ export function CreateLinkDialog({ trigger }: CreateLinkDialogProps) {
 
   const { t } = useTranslation();
 
-  const { mutate: createLink } = useCreateLink({
+  const { data: tags } = useTags();
+  const { mutate: createLink, isPending } = useCreateLink({
     onSuccess: () => setOpen(false),
   });
 
@@ -94,6 +97,19 @@ export function CreateLinkDialog({ trigger }: CreateLinkDialogProps) {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('links.create_link_dialog.form.tags')}</FormLabel>
+                    <FormControl>
+                      <AddTagInput onChange={field.onChange} autoCompleteList={tags?.map(t => t.name)} />
+                    </FormControl>
+                    <I18nFormMessage />
+                  </FormItem>
+                )}
+              />
               <DialogDescription className="flex justify-center items-center gap-2">
                 <CircleQuestionMarkIcon size={24} />
                 {t('links.create_link_dialog.form.information')}
@@ -102,7 +118,7 @@ export function CreateLinkDialog({ trigger }: CreateLinkDialogProps) {
                 <DialogClose asChild>
                   <Button variant="outline">{t('links.create_link_dialog.form.cancel')}</Button>
                 </DialogClose>
-                <Button type="submit">{t('links.create_link_dialog.form.submit')}</Button>
+                <Button type="submit" disabled={isPending}>{t('links.create_link_dialog.form.submit')}</Button>
               </DialogFooter>
             </form>
           </Form>

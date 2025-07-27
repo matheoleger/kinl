@@ -1,9 +1,9 @@
-import { TypedBody, TypedParam, TypedRoute } from '@lonestone/nzoth/server';
+import { FilteringParams, TypedBody, TypedParam, TypedRoute } from '@lonestone/nzoth/server';
 import { Controller, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '../users/contracts/users.contract';
-import { CreateLinkInput, createLinkSchema, linkSchema, linksSchema, UpdateLinkInput, updateLinkSchema } from './contracts/links.contract';
+import { CreateLinkInput, createLinkSchema, linkSchema, LinksFiltering, linksFilteringSchema, linksSchema, UpdateLinkInput, updateLinkSchema } from './contracts/links.contract';
 import { LinksService } from './links.service';
 
 @Controller('links')
@@ -14,12 +14,15 @@ export class LinksController {
   ) {}
 
   @TypedRoute.Get('', linksSchema)
-  getAllLinks(@CurrentUser() user: User) {
-    return this.linksService.getAllLinksFromUser(user.id);
+  getAllLinks(@CurrentUser() user: User, @FilteringParams(linksFilteringSchema) filter?: LinksFiltering) {
+    return this.linksService.getAllLinksFromUser(user.id, filter);
   }
 
   @TypedRoute.Post('', linkSchema)
-  createLink(@CurrentUser() user: User, @TypedBody(createLinkSchema) body: CreateLinkInput) {
+  createLink(
+    @CurrentUser() user: User,
+    @TypedBody(createLinkSchema) body: CreateLinkInput,
+  ) {
     return this.linksService.createLink(body, user.id);
   }
 

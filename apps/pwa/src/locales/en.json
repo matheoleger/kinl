@@ -38,6 +38,69 @@
     "error": {
       "title": "Error",
       "description": "Something went wrong. Please try again later."
+    },
+    "cancel": "Cancel",
+    "navigation": {
+      "dashboard": "Dashboard",
+      "tags": "Tags",
+      "group": {
+        "pinned_tags": {
+          "label": "Pinned tags"
+        }
+      }
+    }
+  },
+  "tags": {
+    "create_tags_dialog": {
+      "title": "Add tags",
+      "description": "Add tags to your collection of tags",
+      "form": {
+        "submit": "Add tags",
+        "success": "Successfully created tags",
+        "errors": {
+          "invalid_tags": "Invalid tags. Please enter a valid tags."
+        }
+      }
+    },
+    "create_tags_input": {
+      "placeholder": "Add a tag",
+      "tag_list": {
+        "title": "Tags",
+        "information": "You can remove tags by clicking on it."
+      },
+      "errors": {
+        "name_must_be_longer_than_2": "Name must be at least 2 characters long"
+      }
+    },
+    "card": {
+      "actions": {
+        "delete": {
+          "title": "Delete tag",
+          "description": "Are you sure you want to delete this tag?",
+          "success": "Tag successfully deleted"
+        },
+        "update": {
+          "title": "Edit tag",
+          "description": "Edit the tag name",
+          "form": {
+            "success": "Tag name successfully updated",
+            "cancel": "Cancel",
+            "submit": "Update",
+            "name": "Tag name",
+            "errors": {
+              "invalid_name": "Tag name must be at least 2 characters long"
+            }
+          }
+        }
+      }
+    },
+    "pinned_tag": {
+      "unpin": {
+        "success": "This tag is not in your pinned tags anymore."
+      },
+      "pin": {
+        "success": "Tag successfully pinned."
+      }
     }
   },
   "links": {
@@ -54,7 +117,8 @@
         "success": "Successfully created link",
         "errors": {
           "invalid_url": "Invalid URL. Please enter a valid URL."
-        }
+        },
+        "tags": "Add tags"
       }
     },
     "update_link_dialog": {
@@ -70,7 +134,8 @@
         "errors": {
           "invalid_url": "Please enter a valid URL.",
           "invalid_title": "Length must be at least 2 characters."
-        }
+        },
+        "tags": "New tag"
       }
     },
     "delete": {
@@ -79,6 +144,9 @@
       "cancel": "Cancel",
       "confirm": "Delete link",
       "success": "Link successfully deleted"
+    },
+    "list": {
+      "title": "Links with tag(s): {{tags}}"
     }
   },
   "api_errors": {

@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import configuration, { validateConfig } from './config/env.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { LinksModule } from './modules/links/links.module';
+import { TagsModule } from './modules/tags/tags.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
@@ -11,6 +12,6 @@ import { UsersModule } from './modules/users/users.module';
     load: [configuration],
     validate: validateConfig,
     envFilePath: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
-  }), LinksModule, AuthModule, UsersModule],
+  }), LinksModule, AuthModule, UsersModule, TagsModule],
 })
 export class AppModule {}

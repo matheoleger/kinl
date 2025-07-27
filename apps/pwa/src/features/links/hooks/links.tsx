@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { apiClient } from '@/lib/api-client';
 
-export function useLinks() {
+export function useLinks({ tags }: { tags?: string[] } = {}) {
+  const filter = tags && tags.length ? `tags:in:${JSON.stringify(tags)}` : undefined;
+
   return useQuery({
     queryKey: ['links'],
-    queryFn: () => apiClient.linksControllerGetAllLinks(),
+    queryFn: () => apiClient.linksControllerGetAllLinks({ query: { filter } }),
   });
 }
 

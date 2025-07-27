@@ -3,8 +3,10 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from 'src/modules/auth/auth.service';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { TagsModule } from 'src/modules/tags/tags.module';
 import { UsersService } from 'src/modules/users/users.service';
 import { LinksController } from '../links.controller';
+import { LinksHelper } from '../links.helper';
 import { LinksService } from '../links.service';
 
 describe('linksController', () => {
@@ -20,10 +22,12 @@ describe('linksController', () => {
         JwtModule.register({
           secret: 'test-secret',
         }),
+        TagsModule,
       ],
       controllers: [LinksController],
       providers: [
         LinksService,
+        LinksHelper,
         AuthService,
         UsersService,
         { provide: JwtService, useValue: {} },

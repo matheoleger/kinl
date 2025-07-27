@@ -26,6 +26,8 @@ import {
 import { I18nFormMessage } from '@/components/ui/i18n-form-message';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { AddTagInput } from '@/features/tags/components/add-tag-input';
+import { useTags } from '@/features/tags/hooks/tags';
 import { useUpdateLink } from '../hooks/links';
 
 interface UpdateLinkDialogProps {
@@ -47,7 +49,9 @@ export function UpdateLinkDialog({
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
-  const { mutate: updateLink } = useUpdateLink({
+  const { data: tags } = useTags();
+
+  const { mutate: updateLink, isPending } = useUpdateLink({
     onSuccess: () => setOpen(false),
   });
 
@@ -136,13 +140,28 @@ export function UpdateLinkDialog({
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t('links.update_link_dialog.form.tags')}
+                    </FormLabel>
+                    <FormControl>
+                      <AddTagInput onChange={field.onChange} autoCompleteList={tags?.map(t => t.name)} defaultValues={field.value} />
+                    </FormControl>
+                    <I18nFormMessage />
+                  </FormItem>
+                )}
+              />
               <DialogFooter>
                 <DialogClose asChild>
                   <Button variant="outline">
                     {t('links.update_link_dialog.form.cancel')}
                   </Button>
                 </DialogClose>
-                <Button type="submit">
+                <Button type="submit" disabled={isPending}>
                   {t('links.update_link_dialog.form.submit')}
                 </Button>
               </DialogFooter>

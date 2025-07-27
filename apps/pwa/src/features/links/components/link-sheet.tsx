@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import fallBackImage from '@/assets/images/fallback-img.webp';
 import { AlertButton } from '@/components/common/alert-button';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useDeleteLink } from '../hooks/links';
 import { LinkCard } from './link-card';
+import { LinkTagsList } from './link-tags-list';
 import { UpdateLinkDialog } from './update-link-dialog';
 
 interface LinkSheetProps {
@@ -38,9 +38,9 @@ export function LinkSheet({ link }: LinkSheetProps) {
                 </Button>
               )}
               linkId={link.id}
-              defaultValues={link}
+              defaultValues={{ ...link, tags: link.tags?.map(t => t.name) }}
             />
-            <AlertButton title="Delete link" description="Are you sure you want to delete this link?" onConfirm={() => deleteLink(link.id)}>
+            <AlertButton title="Delete link" description="Are you sure you want to delete this link?" onConfirm={() => deleteLink(link.id)} asChild>
               <Button variant="secondary" size="icon">
                 <Trash2Icon className="text-destructive" />
               </Button>
@@ -53,18 +53,7 @@ export function LinkSheet({ link }: LinkSheetProps) {
               <Link2Icon className="text-muted-foreground w-4 h-4" />
             </SheetTitle>
             <SheetDescription>{link.description}</SheetDescription>
-            <ul className="flex flex-wrap gap-2">
-              {/* TODO: add tags */}
-              <li>
-                <Badge variant="secondary" className="text-xs px-2">tag</Badge>
-              </li>
-              <li>
-                <Badge variant="secondary" className="text-xs px-2">tag</Badge>
-              </li>
-              <li>
-                <Badge variant="secondary" className="text-xs px-2">tag</Badge>
-              </li>
-            </ul>
+            <LinkTagsList tags={link.tags ?? []} displayAll />
           </div>
         </SheetHeader>
         <hr className="m-4 h-0.5 border-t-0 bg-muted-foreground/20" />
