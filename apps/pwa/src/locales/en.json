@@ -104,7 +104,8 @@
         "success": "Successfully created link",
         "errors": {
           "invalid_url": "Invalid URL. Please enter a valid URL."
-        }
+        },
+        "tags": "Add tags"
       }
     },
     "update_link_dialog": {

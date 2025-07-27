@@ -60,35 +60,30 @@ export function AddTagInput({ onChange, autoCompleteList, defaultValues }: AddTa
   return (
     <div className="flex flex-col gap-4">
       <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-        <PopoverAnchor>
-          <div className="flex gap-2">
-            <Input
-              ref={inputRef}
-              placeholder={t('tags.create_tags_input.placeholder')}
-              value={tag}
-              onChange={(e) => {
-                setPopoverOpen(!!e.target.value && !!filteredAutoCompleteList?.length);
-                setTag(e.target.value);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  onAddTag();
-                }
-                else if (e.key === 'ArrowDown') {
-                  e.preventDefault();
-                  comboboxListRef.current?.focus();
-                  setPopoverOpen(true);
-                }
-              }}
-            />
-            <Button variant="outline" size="icon" onClick={onAddTag} type="button">
-              <PlusIcon />
-            </Button>
-          </div>
-        </PopoverAnchor>
-        <PopoverContent className="p-1" side="bottom" align="start" onOpenAutoFocus={e => e.preventDefault()}>
-          <Command>
+        <Command loop>
+          <PopoverAnchor>
+            <div className="flex gap-2">
+              <Input
+                ref={inputRef}
+                placeholder={t('tags.create_tags_input.placeholder')}
+                value={tag}
+                onChange={(e) => {
+                  setPopoverOpen(!!e.target.value && !!filteredAutoCompleteList?.length);
+                  setTag(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !popoverOpen) {
+                    e.preventDefault();
+                    onAddTag();
+                  }
+                }}
+              />
+              <Button variant="outline" size="icon" onClick={onAddTag} type="button">
+                <PlusIcon />
+              </Button>
+            </div>
+          </PopoverAnchor>
+          <PopoverContent className="p-1" side="bottom" align="start" onOpenAutoFocus={e => e.preventDefault()}>
             <CommandList ref={comboboxListRef}>
               <CommandGroup>
                 {
@@ -98,7 +93,6 @@ export function AddTagInput({ onChange, autoCompleteList, defaultValues }: AddTa
                       onSelect={() => {
                         setTag(tag);
                         setPopoverOpen(false);
-                        inputRef.current?.focus();
                       }}
                     >
                       <span className="w-full text-start">
@@ -109,8 +103,8 @@ export function AddTagInput({ onChange, autoCompleteList, defaultValues }: AddTa
                 }
               </CommandGroup>
             </CommandList>
-          </Command>
-        </PopoverContent>
+          </PopoverContent>
+        </Command>
       </Popover>
       {
         errorMessage && (

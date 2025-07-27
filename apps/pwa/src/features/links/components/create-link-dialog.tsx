@@ -102,7 +102,7 @@ export function CreateLinkDialog({ trigger }: CreateLinkDialogProps) {
                 name="tags"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('links.create_link_dialog.form.description')}</FormLabel>
+                    <FormLabel>{t('links.create_link_dialog.form.tags')}</FormLabel>
                     <FormControl>
                       <AddTagInput onChange={field.onChange} autoCompleteList={tags?.map(t => t.name)} />
                     </FormControl>
