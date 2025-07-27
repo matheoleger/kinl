@@ -5,6 +5,7 @@ export default [
   layout('routes/main/layout.tsx', [
     index('routes/main/dashboard.tsx'),
     route('tags', 'routes/main/tags.tsx'),
+    route('links', 'routes/main/links.tsx'),
   ]),
   layout('routes/auth/layout.tsx', [
     route('login', 'routes/auth/login.tsx'),

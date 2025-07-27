@@ -31,4 +31,16 @@ export class LinksHelper {
       tags: link.tags.map(t => (t.tag)),
     };
   }
+
+  parseFilterTags(filterTags?: string): { tags: { some: { tag: { name: string } } } }[] {
+    if (!filterTags) {
+      return [];
+    }
+    else if (filterTags.match(/^\[.*\]$/)) {
+      return (JSON.parse(filterTags) as string[]).map(tagName => ({ tags: { some: { tag: { name: tagName } } } }));
+    }
+    else {
+      return [{ tags: { some: { tag: { name: filterTags } } } }];
+    }
+  }
 }

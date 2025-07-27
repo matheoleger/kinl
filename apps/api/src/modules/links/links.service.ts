@@ -14,22 +14,14 @@ export class LinksService {
   ) {}
 
   async getAllLinksFromUser(userId: string, filter?: LinksFiltering) {
-    const filterByTags = filter?.filter(f => f.property === 'tags').map((f) => {
-      return {
-        tags: {
-          some: {
-            tag: {
-              name: f.value,
-            },
-          },
-        },
-      };
-    });
+    const filterTags = filter?.find(f => f.property === 'tags');
+
+    const filterByTags = this.linksHelper.parseFilterTags(filterTags?.value);
 
     const links = await this.prisma.link.findMany({
       where: {
         ownerId: userId,
-        OR: filterByTags,
+        AND: filterByTags,
       },
       include: {
         tags: {
@@ -43,12 +35,6 @@ export class LinksService {
     const formattedLinks = this.linksHelper.mapLinksToSchema(links);
 
     return formattedLinks;
-
-    return this.prisma.link.findMany({
-      where: {
-        ownerId: userId,
-      },
-    });
   }
 
   async createLink(input: CreateLinkInput, userId: string) {

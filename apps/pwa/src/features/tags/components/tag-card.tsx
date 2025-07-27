@@ -15,7 +15,7 @@ export function TagCard({ tag }: TagCardProps) {
     <Card
       className="flex flex-row justify-between items-center gap-4 p-4 w-full hover:text-primary hover:bg-secondary/50"
       onClick={() => {
-        navigate(`/tags/${tag.id}`);
+        navigate(`/links?tags=${tag.name}`);
       }}
     >
       <div className="flex flex-row gap-4 w-full pl-2">

@@ -131,6 +131,9 @@
       "cancel": "Cancel",
       "confirm": "Delete link",
       "success": "Link successfully deleted"
+    },
+    "list": {
+      "title": "Links with tag(s): {{tags}}"
     }
   },
   "api_errors": {

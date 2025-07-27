@@ -26,10 +26,6 @@ export const linksSchema = z.array(linkSchema).openapi({
 
 export type Links = z.infer<typeof linksSchema>;
 
-export const linksFilteringSchema = createFilterQueryStringSchema(['tags']);
-
-export type LinksFiltering = z.infer<typeof linksFilteringSchema>;
-
 export const createLinkSchema = z.object({
   url: z.string().url(),
   title: z.string().optional(),
@@ -53,3 +49,11 @@ export const updateLinkSchema = z.object({
 });
 
 export type UpdateLinkInput = z.infer<typeof updateLinkSchema>;
+
+// Filtering, sorting and pagination
+
+export const filteringKeys = ['tags'] as const;
+
+export const linksFilteringSchema = createFilterQueryStringSchema(filteringKeys);
+
+export type LinksFiltering = z.infer<typeof linksFilteringSchema>;

@@ -37,7 +37,7 @@ export function TagActionDropdown({ tag }: { tag: TagSchema }) {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <NavLink to={`/tags/${tag.id}`}>
+            <NavLink to={`/links?tags=${tag.name}`}>
               <EyeIcon />
               View
             </NavLink>

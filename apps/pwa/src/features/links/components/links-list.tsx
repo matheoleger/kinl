@@ -2,9 +2,13 @@
 import { useLinks } from '../hooks/links';
 import { LinkSheet } from './link-sheet';
 
-export function LinksList() {
+interface LinksListProps {
+  tagsFilter?: string[];
+}
+
+export function LinksList({ tagsFilter }: LinksListProps = {}) {
   // const { selectedTab } = useTopBar();
-  const { data: links } = useLinks();
+  const { data: links } = useLinks({ tags: tagsFilter });
 
   const sortedLinks = links?.data?.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
