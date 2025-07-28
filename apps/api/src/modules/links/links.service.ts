@@ -87,16 +87,6 @@ export class LinksService {
     }
   }
 
-  async getMetadataFromUrl(url: string) {
-    try {
-      const metadata = await urlMetadata(url);
-      return metadata;
-    }
-    catch {
-      return null;
-    }
-  }
-
   async updateLink(input: UpdateLinkInput, linkId: string, userId: string) {
     const isUserOwner = await this.prisma.link.findUnique({
       where: {
@@ -111,6 +101,9 @@ export class LinksService {
 
     const { tags: tagsNames, ...data } = input;
 
+    const metadata = data.url ? await this.getMetadataFromUrl(data.url) : null;
+    const image = metadata?.image || metadata?.['og:image'];
+
     // createMultipleTags returns the created tags and already created tags with same name as input
     const tags = tagsNames ? await this.tagsService.createMultipleTags({ names: tagsNames }, userId) : [];
 
@@ -120,6 +113,7 @@ export class LinksService {
       },
       data: {
         ...data,
+        image,
         tags: {
           createMany: {
             data: tags.map(t => ({ tagId: t.id })),
@@ -142,6 +136,16 @@ export class LinksService {
     });
 
     return this.linksHelper.mapLinkToSchema(updatedLink);
+  }
+
+  async getMetadataFromUrl(url: string) {
+    try {
+      const metadata = await urlMetadata(url);
+      return metadata;
+    }
+    catch {
+      return null;
+    }
   }
 
   async deleteLink(linkId: string, userId: string) {
