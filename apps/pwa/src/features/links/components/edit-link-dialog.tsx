@@ -41,7 +41,7 @@ const i18nUpdateLinkSchema = zUpdateLinkSchema.extend({
   title: z.string().min(2, 'links.update_link_dialog.form.errors.invalid_title').optional(),
 });
 
-export function UpdateLinkDialog({
+export function EditLinkDialog({
   trigger,
   linkId,
   defaultValues,

@@ -35,7 +35,8 @@ export function useCreateLink({ onSuccess, onError }: UseLinkMutationsOptions = 
     },
     onSuccess: () => {
       onSuccess?.();
-      queryClient.invalidateQueries({ queryKey: ['links', 'tags'] });
+      queryClient.invalidateQueries({ queryKey: ['links'] });
+      queryClient.invalidateQueries({ queryKey: ['tags'] });
       toast.success(t('links.create_link_dialog.form.success'));
     },
     onError: (error) => {
@@ -87,7 +88,8 @@ export function useUpdateLink({ onSuccess, onError }: UseLinkMutationsOptions = 
     },
     onSuccess: () => {
       onSuccess?.();
-      queryClient.invalidateQueries({ queryKey: ['links', 'tags'] });
+      queryClient.invalidateQueries({ queryKey: ['links'] });
+      queryClient.invalidateQueries({ queryKey: ['tags'] });
       toast.success(t('links.update_link_dialog.form.success'));
     },
     onError: (error) => {

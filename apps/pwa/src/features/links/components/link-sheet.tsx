@@ -7,9 +7,9 @@ import { AlertButton } from '@/components/common/alert-button';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useDeleteLink } from '../hooks/links';
+import { EditLinkDialog } from './edit-link-dialog';
 import { LinkCard } from './link-card';
 import { LinkTagsList } from './link-tags-list';
-import { UpdateLinkDialog } from './update-link-dialog';
 
 interface LinkSheetProps {
   link: LinkSchema;
@@ -29,9 +29,10 @@ export function LinkSheet({ link }: LinkSheetProps) {
         <SheetHeader className="p-0">
           <div className="flex absolute top-4 left-4 gap-2">
             <Button variant="secondary" size="icon" asChild>
+              {/* TODO: add aria-label with the link title */}
               <Link to={link.url} target="_blank" className="hover:text-primary"><Link2Icon /></Link>
             </Button>
-            <UpdateLinkDialog
+            <EditLinkDialog
               trigger={(
                 <Button variant="secondary" size="icon">
                   <Edit2Icon />
@@ -46,7 +47,11 @@ export function LinkSheet({ link }: LinkSheetProps) {
               </Button>
             </AlertButton>
           </div>
-          <img src={link.image || fallBackImage} alt={link.title} className="w-full h-48 object-cover mb-4" />
+          <img
+            src={link.image || fallBackImage}
+            alt={link.title} // TODO: empty alt attribute because it's a decorative image
+            className="w-full h-48 object-cover mb-4"
+          />
           <div className="p-4 flex flex-col gap-2">
             <SheetTitle className="text-lg flex items-center gap-2">
               <Link to={link.url} target="_blank" className="hover:text-primary">{link.title}</Link>
