@@ -34,6 +34,8 @@ export class AuthController {
   async logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('access_token');
 
+    // TODO: invalidate the token
+
     return { message: 'Successfully logged out' };
   }
 
