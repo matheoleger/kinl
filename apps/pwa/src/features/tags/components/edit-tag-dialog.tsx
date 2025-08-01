@@ -1,6 +1,7 @@
 import type { TagSchema, UpdateTagSchema } from '@kinl/codegen-api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { zUpdateTagSchema } from '@kinl/codegen-api';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import z from 'zod';
@@ -36,6 +37,12 @@ export function EditTagDialog({ tag, trigger, open, onOpenChange }: EditTagDialo
   const onSubmit = (data: UpdateTagSchema) => {
     updateTag({ tagId: tag.id, data });
   };
+
+  useEffect(() => {
+    if (open) {
+      form.reset(tag);
+    }
+  }, [open, tag, form]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
