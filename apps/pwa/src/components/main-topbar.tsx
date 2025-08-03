@@ -27,7 +27,7 @@ export function MainTopbar() {
       <div className="sm:flex hidden flex-row items-center gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" aria-label="Add elements">
               <PlusIcon />
             </Button>
           </DropdownMenuTrigger>

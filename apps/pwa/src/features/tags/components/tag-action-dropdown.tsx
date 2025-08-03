@@ -32,6 +32,7 @@ export function TagActionDropdown({ tag }: { tag: TagSchema }) {
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Open tag actions"
             className="flex-shrink-0 pointer-events-auto"
           >
             <EllipsisVerticalIcon />

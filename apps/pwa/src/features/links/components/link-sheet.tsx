@@ -33,7 +33,7 @@ export function LinkSheet({ link }: LinkSheetProps) {
             </Button>
             <EditLinkDialog
               trigger={(
-                <Button variant="secondary" size="icon">
+                <Button variant="secondary" size="icon" aria-label="Edit link">
                   <Edit2Icon />
                 </Button>
               )}
@@ -41,7 +41,7 @@ export function LinkSheet({ link }: LinkSheetProps) {
               defaultValues={{ ...link, tags: link.tags?.map(t => t.name) }}
             />
             <AlertButton title="Delete link" description="Are you sure you want to delete this link?" onConfirm={() => deleteLink(link.id)} asChild>
-              <Button variant="secondary" size="icon">
+              <Button variant="secondary" size="icon" aria-label="Delete link">
                 <Trash2Icon className="text-destructive" />
               </Button>
             </AlertButton>
