@@ -12,7 +12,7 @@ export function MainTopbar() {
   const { selectedTab, setSelectedTab } = useTopBar();
 
   return (
-    <div className="w-full sm:h-14 rounded-md flex flex-row sm:items-center items-start px-2 sm:py-0 py-4 sm:justify-between justify-center sticky top-0 bg-background z-10">
+    <header className="w-full sm:h-16 rounded-md flex flex-row sm:items-center items-start px-4 py-4 sm:justify-between justify-center sticky top-0 bg-background z-10">
       <div className="flex sm:flex-row flex-col items-center gap-4">
         <Input placeholder="Search" className="min-w-xs" />
         <Tabs value={selectedTab} onValueChange={value => setSelectedTab(value as TabsValue)}>
@@ -55,6 +55,6 @@ export function MainTopbar() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    </div>
+    </header>
   );
 }
