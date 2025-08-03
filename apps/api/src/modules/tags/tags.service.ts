@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTagsInput, UpdateTagInput } from './contracts/tags.contract';
 import { TagsHelper } from './tags.helper';
@@ -61,7 +61,13 @@ export class TagsService {
     return this.tagsHelper.mapPinnedTagToSchema(pinnedTag);
   }
 
-  async deleteTag(tagId: string) {
+  async deleteTag(tagId: string, userId: string) {
+    const isUserOwner = this.getIsUserOwner(tagId, userId);
+
+    if (!isUserOwner) {
+      throw new ForbiddenException('you_cannot_delete_this_tag');
+    }
+
     return this.prisma.tag.delete({
       where: {
         id: tagId,
@@ -80,7 +86,24 @@ export class TagsService {
     });
   }
 
-  async updateTag(tagId: string, input: UpdateTagInput) {
+  async updateTag(tagId: string, input: UpdateTagInput, userId: string) {
+    const isUserOwner = this.getIsUserOwner(tagId, userId);
+
+    if (!isUserOwner) {
+      throw new ForbiddenException('you_cannot_update_this_tag');
+    }
+
+    const tagWithSameName = await this.prisma.tag.findFirst({
+      where: {
+        name: input.name,
+        ownerId: userId,
+      },
+    });
+
+    if (tagWithSameName) {
+      throw new BadRequestException('tag_with_same_name_already_exists');
+    }
+
     return this.prisma.tag.update({
       where: {
         id: tagId,

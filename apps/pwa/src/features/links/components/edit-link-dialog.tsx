@@ -1,7 +1,7 @@
 import type { UpdateLinkSchema } from '@kinl/codegen-api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { zUpdateLinkSchema } from '@kinl/codegen-api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -41,7 +41,7 @@ const i18nUpdateLinkSchema = zUpdateLinkSchema.extend({
   title: z.string().min(2, 'links.update_link_dialog.form.errors.invalid_title').optional(),
 });
 
-export function UpdateLinkDialog({
+export function EditLinkDialog({
   trigger,
   linkId,
   defaultValues,
@@ -63,6 +63,12 @@ export function UpdateLinkDialog({
   const onSubmit = (data: UpdateLinkSchema) => {
     updateLink({ id: linkId, data });
   };
+
+  useEffect(() => {
+    if (open) {
+      form.reset(defaultValues);
+    }
+  }, [open, defaultValues, form]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

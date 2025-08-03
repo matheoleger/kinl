@@ -1,7 +1,7 @@
 import type { CreateTagsSchema } from '@kinl/codegen-api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { zCreateTagsSchema } from '@kinl/codegen-api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import z from 'zod';
@@ -28,15 +28,19 @@ export function CreateTagsDialog({ trigger }: CreateTagsDialogProps) {
   const form = useForm<CreateTagsSchema>({
     resolver: zodResolver(i18nCreateTagsSchema),
     defaultValues: {
-      names: ['bonsoir', 'tous'],
+      names: [],
     },
   });
 
   const onSubmit = (data: CreateTagsSchema) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
     createTags(data);
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      form.reset();
+    }
+  }, [isOpen, form]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

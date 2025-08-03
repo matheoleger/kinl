@@ -35,13 +35,7 @@ export class TagsController {
 
   @TypedRoute.Delete(':id')
   deleteTag(@CurrentUser() user: User, @TypedParam('id') tagId: string) {
-    const isUserOwner = this.tagsService.getIsUserOwner(tagId, user.id);
-
-    if (!isUserOwner) {
-      throw new Error('You are not the owner of this tag');
-    }
-
-    return this.tagsService.deleteTag(tagId);
+    return this.tagsService.deleteTag(tagId, user.id);
   }
 
   @TypedRoute.Delete(':tagId/pin')
@@ -51,12 +45,6 @@ export class TagsController {
 
   @TypedRoute.Patch(':id', tagSchema)
   updateTag(@CurrentUser() user: User, @TypedBody(updateTagSchema) body: UpdateTagInput, @TypedParam('id') tagId: string) {
-    const isUserOwner = this.tagsService.getIsUserOwner(tagId, user.id);
-
-    if (!isUserOwner) {
-      throw new Error('You are not the owner of this tag');
-    }
-
-    return this.tagsService.updateTag(tagId, body);
+    return this.tagsService.updateTag(tagId, body, user.id);
   }
 }

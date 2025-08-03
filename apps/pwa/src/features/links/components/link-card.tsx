@@ -20,7 +20,7 @@ export function LinkCard({ link, onClick }: LinkCardProps) {
           <div className="relative w-full h-full max-h-48 rounded-t-xl overflow-hidden">
             <img
               src={link.image || fallbackImage}
-              alt={link.title}
+              alt={link.title} // TODO: empty alt attribute because it's a decorative image
               onError={(e) => {
                 (e.target as HTMLImageElement).src = fallbackImage;
               }}
@@ -30,6 +30,7 @@ export function LinkCard({ link, onClick }: LinkCardProps) {
           </div>
         </CardContent>
         <CardFooter className="flex-col items-start gap-2">
+          {/* TODO: underline title on hover */}
           <h2 className="text-lg font-bold line-clamp-3">{link.title}</h2>
           <LinkTagsList tags={link.tags ?? []} />
         </CardFooter>

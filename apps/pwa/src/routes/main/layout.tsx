@@ -24,6 +24,7 @@ export default function MainLayout() {
   return (
     <SidebarProvider>
       <TopBarProvider>
+        {/* TODO: better structure for a11y and mobile layout */}
         <main className="flex min-h-screen w-full bg-background">
           <MainSidebar />
           <div className="flex-1 flex flex-col items-center gap-16 min-h-0 w-full my-2 sm:mr-2 sm:ml-8">

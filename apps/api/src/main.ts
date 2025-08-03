@@ -30,6 +30,7 @@ async function bootstrap() {
 
   addSchemasToSwagger(document);
 
+  // TODO: disable Swagger in production mode
   SwaggerModule.setup('docs', app, document, {
     jsonDocumentUrl: 'docs-json',
   });
