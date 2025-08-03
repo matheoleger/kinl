@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.4.0 (2025-08-03)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### New Features 🎉
+* feat(tags): implementation of tags system in the app by @matheoleger in https://github.com/matheoleger/kinl/pull/12
+### Bugfixes 🐛
+* fix(links): update image if url is update by @matheoleger in https://github.com/matheoleger/kinl/pull/15
+* fix: general problem about dialog, cache, error handling by @matheoleger in https://github.com/matheoleger/kinl/pull/16
+### Other Changes
+* build(docker): multi platforms build by @matheoleger in https://github.com/matheoleger/kinl/pull/14
+
+
+**Full Changelog**: https://github.com/matheoleger/kinl/compare/v0.3.1...v0.4.0
+
 ## 0.3.1 (2025-07-21)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
