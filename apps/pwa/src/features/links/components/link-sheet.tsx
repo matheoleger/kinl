@@ -29,8 +29,7 @@ export function LinkSheet({ link }: LinkSheetProps) {
         <SheetHeader className="p-0">
           <div className="flex absolute top-4 left-4 gap-2">
             <Button variant="secondary" size="icon" asChild>
-              {/* TODO: add aria-label with the link title */}
-              <Link to={link.url} target="_blank" className="hover:text-primary"><Link2Icon /></Link>
+              <Link to={link.url} target="_blank" aria-label={link.title} className="hover:text-primary"><Link2Icon /></Link>
             </Button>
             <EditLinkDialog
               trigger={(
@@ -49,11 +48,11 @@ export function LinkSheet({ link }: LinkSheetProps) {
           </div>
           <img
             src={link.image || fallBackImage}
-            alt={link.title} // TODO: empty alt attribute because it's a decorative image
+            alt=""
             className="w-full h-48 object-cover mb-4"
           />
           <div className="p-4 flex flex-col gap-2">
-            <SheetTitle className="text-lg flex items-center gap-2">
+            <SheetTitle className="text-lg flex items-center gap-2 hover:underline">
               <Link to={link.url} target="_blank" className="hover:text-primary">{link.title}</Link>
               <Link2Icon className="text-muted-foreground w-4 h-4" />
             </SheetTitle>
