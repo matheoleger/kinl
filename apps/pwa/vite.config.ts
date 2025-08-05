@@ -12,29 +12,35 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      workbox: {
+        navigateFallback: '/index.html', // Ensures SPA works offline
+      },
       manifest: {
-        name: 'Vite PWA Project',
-        short_name: 'Vite PWA Project',
-        theme_color: '#ffffff',
+        name: 'kinL',
+        short_name: 'kinL',
+        description: 'kinL is a link bookmarking service that allows you to store links and share them with your friends and colleagues.',
+        theme_color: '#ff7c7c',
+        start_url: './',
+        display: 'standalone',
         icons: [
           {
-            src: 'pwa-64x64.png',
+            src: 'pwa-64-64.png',
             sizes: '64x64',
             type: 'image/png',
           },
           {
-            src: 'pwa-192x192.png',
+            src: 'pwa-192-192.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'pwa-512-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any',
           },
           {
-            src: 'maskable-icon-512x512.png',
+            src: 'pwa-512-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',

@@ -6,7 +6,7 @@ export default function Register() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-full mx-16 gap-4">
+    <div className="flex flex-col justify-center items-center lg:h-screen w-full mx-16 gap-4">
       <RegisterForm />
       <p className="text-sm">
         <Trans t={t} i18nKey="auth.register.loginRedirection">

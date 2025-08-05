@@ -5,7 +5,7 @@ export async function authLoader() {
   try {
     const { data: user, error } = await apiClient.authControllerMe();
 
-    if (error) {
+    if (error || !user?.id) {
       throw new Error((error as any).message);
     }
 
