@@ -24,17 +24,18 @@ export default function MainLayout() {
   return (
     <SidebarProvider>
       <TopBarProvider>
-        {/* TODO: better structure for a11y and mobile layout */}
-        <main className="flex min-h-screen w-full bg-background">
+        <div className="flex min-h-screen w-full bg-background">
           <MainSidebar />
-          <div className="flex-1 flex flex-col items-center gap-16 min-h-0 w-full my-2 sm:mr-2 sm:ml-8">
+          <div className="flex flex-col w-full">
             <MainTopbar />
-            <Outlet />
-            <div className="sm:hidden w-full sticky bottom-0 flex flex-row justify-end gap-2 px-4 py-4">
+            <main className="flex flex-1 w-full gap-16 my-2 md:px-2 mt-8">
+              <Outlet />
+            </main>
+            <div className="md:hidden w-full sticky bottom-0 flex flex-row justify-end gap-2 px-4 py-4">
               <AddDialog mobile />
             </div>
           </div>
-        </main>
+        </div>
       </TopBarProvider>
     </SidebarProvider>
   );
