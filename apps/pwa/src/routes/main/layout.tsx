@@ -28,10 +28,10 @@ export default function MainLayout() {
           <MainSidebar />
           <div className="flex flex-col w-full">
             <MainTopbar />
-            <main className="flex flex-1 w-full gap-16 my-2 sm:px-2 mt-8">
+            <main className="flex flex-1 w-full gap-16 my-2 md:px-2 mt-8">
               <Outlet />
             </main>
-            <div className="sm:hidden w-full sticky bottom-0 flex flex-row justify-end gap-2 px-4 py-4">
+            <div className="md:hidden w-full sticky bottom-0 flex flex-row justify-end gap-2 px-4 py-4">
               <AddDialog mobile />
             </div>
           </div>

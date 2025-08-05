@@ -18,7 +18,7 @@ export function MainSidebar() {
   const { pathname } = useLocation();
 
   return (
-    <nav aria-label="Main sidebar" className="sm:pr-6">
+    <nav aria-label="Main sidebar" className="md:pr-6">
       <Sidebar variant="floating" className="w-72">
         <SidebarHeader>
           <SidebarMenu className="pt-8">

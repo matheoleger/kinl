@@ -25,7 +25,7 @@ export function LinkSheet({ link }: LinkSheetProps) {
       <SheetTrigger asChild>
         <LinkCard link={link} onClick={() => setOpen(true)} />
       </SheetTrigger>
-      <SheetContent className="min-w-screen sm:min-w-1/2 overflow-y-auto">
+      <SheetContent className="min-w-screen md:min-w-1/2 overflow-y-auto">
         <SheetHeader className="p-0">
           <div className="flex absolute top-4 left-4 gap-2">
             <Button variant="secondary" size="icon" asChild>
