@@ -52,7 +52,7 @@ export function LinkSheet({ link }: LinkSheetProps) {
             className="w-full h-48 object-cover mb-4"
           />
           <div className="p-4 flex flex-col gap-2">
-            <SheetTitle className="text-lg flex items-center gap-2 hover:underline">
+            <SheetTitle className="text-lg flex items-center gap-2 hover:underline line-clamp-3">
               <Link to={link.url} target="_blank" className="hover:text-primary">{link.title}</Link>
               <Link2Icon className="text-muted-foreground w-4 h-4" />
             </SheetTitle>

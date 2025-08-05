@@ -29,8 +29,8 @@ export function LinkCard({ link, onClick }: LinkCardProps) {
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-card via-card/75 to-transparent pointer-events-none" />
           </div>
         </CardContent>
-        <CardFooter className="flex-col items-start gap-2">
-          <h2 className="text-lg font-bold line-clamp-3 group-hover:underline">{link.title}</h2>
+        <CardFooter className="flex-col items-start gap-2 max-w-60">
+          <h2 className="max-w-full text-lg font-bold line-clamp-3 group-hover:underline">{link.title}</h2>
           <LinkTagsList tags={link.tags ?? []} />
         </CardFooter>
       </Card>
