@@ -36,6 +36,8 @@ RUN npm install -g prisma
 
 WORKDIR /app
 
+ENV NODE_ENV=production
+
 COPY --from=builder /app/api/node_modules ./node_modules
 COPY --from=builder /app/api/dist ./dist
 COPY --from=builder /app/api/package.json ./package.json

@@ -18,14 +18,14 @@ export class AuthController {
     res.cookie('access_token', accessToken, {
       httpOnly: true,
       sameSite: 'lax',
-      secure: false, // TODO: handle for production
+      secure: process.env.NODE_ENV === 'production',
       maxAge: 1000 * 60 * 15, // 15 min
     });
 
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
       sameSite: 'lax',
-      secure: false, // TODO: handle for production
+      secure: process.env.NODE_ENV === 'production',
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     });
 
@@ -45,14 +45,14 @@ export class AuthController {
     res.cookie('access_token', accessToken, {
       httpOnly: true,
       sameSite: 'lax',
-      secure: false, // TODO: handle for production
+      secure: process.env.NODE_ENV === 'production',
       maxAge: 1000 * 60 * 15, // 15 min
     });
 
     res.cookie('refresh_token', newRefreshToken, {
       httpOnly: true,
       sameSite: 'lax',
-      secure: false, // TODO: handle for production
+      secure: process.env.NODE_ENV === 'production',
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     });
 
@@ -70,7 +70,6 @@ export class AuthController {
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');
 
-    // TODO: invalidate the token
     await this.authService.logout(user.id);
 
     return { message: 'Successfully logged out' };
