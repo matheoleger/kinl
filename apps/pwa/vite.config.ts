@@ -20,6 +20,7 @@ export default defineConfig({
         short_name: 'kinL',
         description: 'kinL is a link bookmarking service that allows you to store links and share them with your friends and colleagues.',
         theme_color: '#ff7c7c',
+        background_color: '#0a0a0a',
         start_url: './',
         display: 'standalone',
         icons: [

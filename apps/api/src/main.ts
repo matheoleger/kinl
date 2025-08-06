@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: process.env.TRUSTED_ORIGINS?.split(','), // TODO: add config files
+    origin: process.env.TRUSTED_ORIGINS?.split(','),
     credentials: true,
   });
 
@@ -30,10 +30,11 @@ async function bootstrap() {
 
   addSchemasToSwagger(document);
 
-  // TODO: disable Swagger in production mode
-  SwaggerModule.setup('docs', app, document, {
-    jsonDocumentUrl: 'docs-json',
-  });
+  if (process.env.NODE_ENV === 'development') {
+    SwaggerModule.setup('docs', app, document, {
+      jsonDocumentUrl: 'docs-json',
+    });
+  }
 
   app.use(cookieParser());
 
