@@ -155,6 +155,7 @@
     "email_already_exists": "Email already exists",
     "failed_to_create_user": "Failed to create user",
     "error_creating_link": "Error creating link",
+    "invalid_url": "Invalid or not allowed URL",
     "you_cannot_update_this_link": "You cannot update this link",
     "you_cannot_delete_this_link": "You cannot delete this link",
     "you_cannot_delete_this_tag": "You cannot delete this tag",

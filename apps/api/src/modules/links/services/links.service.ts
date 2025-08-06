@@ -1,9 +1,10 @@
 import { ForbiddenException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import urlMetadata from 'url-metadata';
-import { PrismaService } from '../prisma/prisma.service';
-import { TagsService } from '../tags/tags.service';
-import { CreateLinkInput, LinksFiltering, UpdateLinkInput } from './contracts/links.contract';
-import { LinksHelper } from './links.helper';
+import { PrismaService } from '../../prisma/prisma.service';
+import { TagsService } from '../../tags/tags.service';
+import { CreateLinkInput, LinksFiltering, UpdateLinkInput } from '../contracts/links.contract';
+import { LinksHelper } from '../links.helper';
+import { UrlValidationService } from './url-validation.service';
 
 @Injectable()
 export class LinksService {
@@ -11,6 +12,7 @@ export class LinksService {
     private readonly prisma: PrismaService,
     private readonly tagsService: TagsService,
     private readonly linksHelper: LinksHelper,
+    private readonly urlValidationService: UrlValidationService,
   ) {}
 
   async getAllLinksFromUser(userId: string, filter?: LinksFiltering) {
@@ -39,6 +41,8 @@ export class LinksService {
 
   async createLink(input: CreateLinkInput, userId: string) {
     const metadata = await this.getMetadataFromUrl(input.url);
+    const metadataImage = metadata?.image || metadata?.['og:image'];
+    const image = this.urlValidationService.isValidUrl(metadataImage) ? metadataImage : undefined;
 
     try {
       // TODO: SSRF vulnerability here => isValidUrl
@@ -46,7 +50,7 @@ export class LinksService {
         ? {
             title: metadata.title || metadata['og:title'],
             description: metadata.description || metadata['og:description'],
-            image: metadata.image || metadata['og:image'],
+            image,
           }
         : {
             title: input.url,
@@ -98,7 +102,8 @@ export class LinksService {
     const { tags: tagsNames, ...data } = input;
 
     const metadata = data.url ? await this.getMetadataFromUrl(data.url) : null;
-    const image = metadata?.image || metadata?.['og:image'];
+    const metadataImage = metadata?.image || metadata?.['og:image'];
+    const image = this.urlValidationService.isValidUrl(metadataImage) ? metadataImage : undefined;
 
     // createMultipleTags returns the created tags and already created tags with same name as input
     const tags = tagsNames ? await this.tagsService.createMultipleTags({ names: tagsNames }, userId) : [];
