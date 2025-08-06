@@ -1,0 +1,20 @@
+{
+  "extends": ["config:base"],
+  "enabledManagers": ["npm"],
+  "dependencyDashboard": true,
+  "rangeStrategy": "bump",
+  "prConcurrentLimit": 1,
+  "prCreation": "not-pending",
+  "packageRules": [
+    {
+      "groupName": "All dependencies",
+      "matchPackagePatterns": [".*"],
+      "groupSlug": "all-deps",
+      "separateMajorMinor": false
+    }
+  ],
+  "schedule": ["* 23 * * *"],
+  "updateNotScheduled": false,
+  "commitMessagePrefix": "chore(deps): ",
+  "branchConcurrentLimit": 1
+}
