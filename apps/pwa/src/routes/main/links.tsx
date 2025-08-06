@@ -9,7 +9,7 @@ export default function Links() {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <h1 className="text-xl font-bold px-6">
+      <h1 className="text-xl font-bold px-6 md:text-start text-center">
         <Trans i18nKey="links.list.title" values={{ tags: tags.join(', ') }} />
       </h1>
       <LinksList tagsFilter={tags} />

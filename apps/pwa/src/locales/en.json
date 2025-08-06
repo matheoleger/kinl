@@ -159,6 +159,7 @@
     "you_cannot_delete_this_link": "You cannot delete this link",
     "you_cannot_delete_this_tag": "You cannot delete this tag",
     "you_cannot_update_this_tag": "You cannot update this tag",
-    "tag_with_same_name_already_exists": "Tag with same name already exists"
+    "tag_with_same_name_already_exists": "Tag with same name already exists",
+    "unknown": "Error while calling the server..."
   }
 }

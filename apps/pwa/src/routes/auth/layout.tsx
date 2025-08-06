@@ -3,10 +3,15 @@ import logo from '@/assets/logo/logo-color.svg';
 import { apiClient } from '@/lib/api-client';
 
 export async function clientLoader() {
-  const res = await apiClient.authControllerMe();
+  try {
+    const res = await apiClient.authControllerMe();
 
-  if (res.data?.id && !res.error) {
-    return redirect('/');
+    if (res.data?.id && !res.error) {
+      return redirect('/');
+    }
+  }
+  catch (error) {
+    console.error(error);
   }
 }
 
