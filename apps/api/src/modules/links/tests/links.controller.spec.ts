@@ -8,6 +8,7 @@ import { UsersService } from 'src/modules/users/users.service';
 import { LinksController } from '../links.controller';
 import { LinksHelper } from '../links.helper';
 import { LinksService } from '../services/links.service';
+import { UrlValidationService } from '../services/url-validation.service';
 
 describe('linksController', () => {
   let controller: LinksController;
@@ -30,6 +31,7 @@ describe('linksController', () => {
         LinksHelper,
         AuthService,
         UsersService,
+        UrlValidationService,
         { provide: JwtService, useValue: {} },
         { provide: PrismaService, useValue: {} },
       ],
