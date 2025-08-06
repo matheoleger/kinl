@@ -212,6 +212,17 @@ export type AuthControllerSignInResponses = {
     201: unknown;
 };
 
+export type AuthControllerRefreshTokenData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/auth/refresh';
+};
+
+export type AuthControllerRefreshTokenResponses = {
+    201: unknown;
+};
+
 export type AuthControllerRegisterData = {
     /**
      * Schema for register

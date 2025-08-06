@@ -14,7 +14,7 @@ export function useLogin() {
       const res = await apiClient.authControllerSignIn({ body: { email, password } });
 
       if (res.error) {
-        throw res.error;
+        throw new Error((res.error as Error).message, { cause: 'api_error' });
       }
 
       return res.data;
@@ -24,7 +24,12 @@ export function useLogin() {
       navigate('/');
     },
     onError: (error) => {
-      toast.error(t(`api_errors.${error.message}`));
+      if (error.cause === 'api_error') {
+        toast.error(t(`api_errors.${error.message}`));
+      }
+      else {
+        toast.error(t('api_errors.unknown'));
+      }
     },
   });
 }
@@ -38,7 +43,7 @@ export function useLogout() {
       const res = await apiClient.authControllerLogout();
 
       if (res.error) {
-        throw res.error;
+        throw new Error((res.error as Error).message, { cause: 'api_error' });
       }
 
       return res.data;
@@ -48,7 +53,12 @@ export function useLogout() {
       navigate('/login');
     },
     onError: (error) => {
-      toast.error(t(`api_errors.${error.message}`));
+      if (error.cause === 'api_error') {
+        toast.error(t(`api_errors.${error.message}`));
+      }
+      else {
+        toast.error(t('api_errors.unknown'));
+      }
     },
   });
 }
@@ -64,7 +74,7 @@ export function useRegister() {
       });
 
       if (res.error) {
-        throw res.error;
+        throw new Error((res.error as Error).message, { cause: 'api_error' });
       }
 
       return res.data;
@@ -74,7 +84,12 @@ export function useRegister() {
       navigate('/login');
     },
     onError: (error) => {
-      toast.error(t(`api_errors.${error.message}`));
+      if (error.cause === 'api_error') {
+        toast.error(t(`api_errors.${error.message}`));
+      }
+      else {
+        toast.error(t('api_errors.unknown'));
+      }
     },
   });
 }

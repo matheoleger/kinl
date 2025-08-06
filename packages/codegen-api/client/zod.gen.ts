@@ -176,6 +176,13 @@ export const zAuthControllerSignInData = z.object({
     query: z.never().optional()
 });
 
+export const zAuthControllerRefreshTokenData = z.object({
+    body: z.never().optional(),
+    headers: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
 export const zAuthControllerRegisterData = z.object({
     body: zRegisterSchema,
     headers: z.never().optional(),

@@ -18,7 +18,7 @@ export function MainTopbar() {
       <Button variant="outline" size="icon" className="md:hidden" onClick={() => setOpenMobile(true)}>
         <MenuIcon />
       </Button>
-      <div className="flex md:flex-row flex-col items-center gap-4">
+      <div className="flex md:flex-row flex-col md:items-center gap-4">
         <Input placeholder="Search" className="min-w-xs" />
         <Tabs value={selectedTab} onValueChange={value => setSelectedTab(value as TabsValue)}>
           <TabsList className="bg-card text-card-foreground border rounded-lg">

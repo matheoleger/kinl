@@ -4,7 +4,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '../users/contracts/users.contract';
 import { CreateLinkInput, createLinkSchema, linkSchema, LinksFiltering, linksFilteringSchema, linksSchema, UpdateLinkInput, updateLinkSchema } from './contracts/links.contract';
-import { LinksService } from './links.service';
+import { LinksService } from './services/links.service';
 
 @Controller('links')
 @UseGuards(AuthGuard)
