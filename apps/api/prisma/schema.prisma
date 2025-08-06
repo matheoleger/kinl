@@ -15,15 +15,16 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  username  String
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(uuid())
+  email        String   @unique
+  username     String
+  password     String
+  refreshToken String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  links Link[]
-  tags Tag[]
+  links      Link[]
+  tags       Tag[]
   pinnedTags PinnedTag[]
 }
 
@@ -52,7 +53,7 @@ model Tag {
 
   owner User @relation(fields: [ownerId], references: [id])
 
-  links LinkTag[]
+  links          LinkTag[]
   userPinnedTags PinnedTag[]
 
   @@unique([name, ownerId])
