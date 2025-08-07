@@ -11,7 +11,7 @@ interface LinkCardProps {
 export function LinkCard({ link, onClick }: LinkCardProps) {
   return (
     <button
-      className="max-w-72 w-full max-h-96 h-full rounded-2xl text-start"
+      className="w-62 max-h-96 h-full rounded-2xl text-start"
       type="button"
       onClick={onClick}
     >

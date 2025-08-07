@@ -1,16 +1,14 @@
 import { LinkIcon, MenuIcon, PlusIcon, TagIcon } from 'lucide-react';
 import { useTopBar } from '@/contexts/topbar/topbar-provider';
-import { TabsValue } from '@/contexts/topbar/types';
 import { CreateLinkDialog } from '@/features/links/components/create-link-dialog';
 import { CreateTagsDialog } from '@/features/tags/components/create-tags-dialog';
 import { Button } from './ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { Input } from './ui/input';
 import { useSidebar } from './ui/sidebar';
-import { Tabs, TabsList, TabsTrigger } from './ui/tabs';
 
 export function MainTopbar() {
-  const { selectedTab, setSelectedTab } = useTopBar();
+  const { search, setSearch } = useTopBar();
   const { setOpenMobile } = useSidebar();
 
   return (
@@ -19,15 +17,16 @@ export function MainTopbar() {
         <MenuIcon />
       </Button>
       <div className="flex md:flex-row flex-col md:items-center gap-4">
-        <Input placeholder="Search" className="min-w-xs" />
-        <Tabs value={selectedTab} onValueChange={value => setSelectedTab(value as TabsValue)}>
+        <Input placeholder="Search" className="min-w-xs" value={search} onChange={e => setSearch(e.target.value)} />
+        {/* I commented Tabs for now because we don't need it yet (but I keep the code because it's useful later) */}
+        {/* <Tabs value={selectedTab} onValueChange={value => setSelectedTab(value as TabsValue)}>
           <TabsList className="bg-card text-card-foreground border rounded-lg">
             <TabsTrigger value={TabsValue.ALL}>All</TabsTrigger>
             <TabsTrigger value={TabsValue.MINE}>Mine</TabsTrigger>
             <TabsTrigger value={TabsValue.SHARED}>Shared</TabsTrigger>
             <TabsTrigger value={TabsValue.FEEDS}>Feeds</TabsTrigger>
           </TabsList>
-        </Tabs>
+        </Tabs> */}
       </div>
       <div className="md:flex hidden flex-row items-center gap-2">
         <DropdownMenu>
