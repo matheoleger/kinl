@@ -45,7 +45,6 @@ export class LinksService {
     const image = this.urlValidationService.isValidUrl(metadataImage) ? metadataImage : undefined;
 
     try {
-      // TODO: SSRF vulnerability here => isValidUrl
       const formattedMetadata = metadata
         ? {
             title: metadata.title || metadata['og:title'],
@@ -93,7 +92,7 @@ export class LinksService {
   }
 
   async updateLink(input: UpdateLinkInput, linkId: string, userId: string) {
-    const isUserOwner = this.getIsUserOwner(linkId, userId);
+    const isUserOwner = await this.getIsUserOwner(linkId, userId);
 
     if (!isUserOwner) {
       throw new ForbiddenException('you_cannot_update_this_link');
@@ -150,7 +149,7 @@ export class LinksService {
   }
 
   async deleteLink(linkId: string, userId: string) {
-    const isUserOwner = this.getIsUserOwner(linkId, userId);
+    const isUserOwner = await this.getIsUserOwner(linkId, userId);
 
     if (!isUserOwner) {
       throw new ForbiddenException('you_cannot_delete_this_link');
