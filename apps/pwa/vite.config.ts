@@ -5,9 +5,15 @@ import { VitePWA } from 'vite-plugin-pwa';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './vitest.setup.tsx',
+  },
   plugins: [
     tailwindcss(),
-    reactRouter(),
+    // eslint-disable-next-line node/prefer-global/process
+    !process.env.VITEST && reactRouter(),
     tsconfigPaths(),
     VitePWA({
       registerType: 'autoUpdate',
