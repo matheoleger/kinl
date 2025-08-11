@@ -78,7 +78,7 @@ export function AddTagInput({ onChange, autoCompleteList, defaultValues }: AddTa
                   }
                 }}
               />
-              <Button variant="outline" size="icon" onClick={onAddTag} type="button">
+              <Button variant="outline" size="icon" onClick={onAddTag} type="button" aria-label="Add tag to the list">
                 <PlusIcon />
               </Button>
             </div>

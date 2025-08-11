@@ -1,4 +1,3 @@
-// import { useTopBar } from '@/contexts/topbar/topbar-provider';
 import { useEffect, useMemo } from 'react';
 import { useTopBar } from '@/contexts/topbar/topbar-provider';
 import { useLinks } from '../hooks/links';

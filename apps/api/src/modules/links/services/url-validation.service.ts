@@ -38,7 +38,7 @@ export class UrlValidationService {
   forbiddenDomains = FORBIDDEN_DOMAINS;
 
   private ipToLong(ip: string): number {
-    return ip.split('.').reduce((acc, octet) => (acc << 8) + Number.parseInt(octet, 10), 0); // ipv4 is 32 bits so we can convert it to a long
+    return ip.split('.').reduce((acc, octet) => (acc << 8) + Number.parseInt(octet, 10), 0) >>> 0; // ipv4 is 32 bits so we can convert it to a long
   }
 
   private isIpInRange(ip: string, start: string, end: string): boolean {
