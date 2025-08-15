@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.5.0 (2025-08-11)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### New Features 🎉
+* feat(pwa): a11y + pwa conf + responsive webapp by @matheoleger in https://github.com/matheoleger/kinl/pull/17
+* feat(security): improve security in the app by @matheoleger in https://github.com/matheoleger/kinl/pull/19
+* feat(auth): add confirm password + minimal requirement in the register form by @matheoleger in https://github.com/matheoleger/kinl/pull/20
+* feat(renovate): implement renovate by @matheoleger in https://github.com/matheoleger/kinl/pull/22
+* feat(search): implement first functional search for links and tags by @matheoleger in https://github.com/matheoleger/kinl/pull/25
+### Other Changes
+* test(links): unit tests for all links parts by @matheoleger in https://github.com/matheoleger/kinl/pull/26
+
+
+**Full Changelog**: https://github.com/matheoleger/kinl/compare/v0.4.0...v0.5.0
+
 ## 0.4.0 (2025-08-03)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
