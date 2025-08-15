@@ -3,6 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
+import { PrometheusInterceptor } from './modules/prometheus/prometheus.interceptor';
+import { PrometheusService } from './modules/prometheus/prometheus.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -35,6 +37,8 @@ async function bootstrap() {
       jsonDocumentUrl: 'docs-json',
     });
   }
+
+  app.useGlobalInterceptors(new PrometheusInterceptor(app.get(PrometheusService)));
 
   app.use(cookieParser());
 
