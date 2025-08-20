@@ -105,15 +105,15 @@ jobs:
           build-args: |
             VITE_API_URL=/api
 
-  deploy-render:
-    name: Deploy on Render 🌩️
+  deploy-dokploy:
+    name: Deploy on Dokploy 🌩️
     runs-on: ubuntu-latest
     needs: setup
     steps:
       - name: Deploy API 🚀
         run: |
-          curl ${{ secrets.RENDER_API_WEBHOOK }}
+          curl ${{ secrets.DOKPLOY_API_WEBHOOK }}
 
       - name: Deploy PWA 🚀
         run: |
-          curl ${{ secrets.RENDER_PWA_WEBHOOK }}
+          curl ${{ secrets.DOKPLOY_PWA_WEBHOOK }}

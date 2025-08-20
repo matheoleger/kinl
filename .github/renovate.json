@@ -14,7 +14,7 @@
     }
   ],
   "timezone": "Europe/Paris",
-  "schedule": ["* 10-11 * * *"],
+  "schedule": ["* 5-6 * * 1"],
   "updateNotScheduled": false,
   "commitMessagePrefix": "chore(deps): ",
   "branchConcurrentLimit": 1
