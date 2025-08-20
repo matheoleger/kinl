@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/auth/auth-provider';
 import TopBarProvider from '@/contexts/topbar/topbar-provider';
 import { authLoader } from '@/lib/auth-loader';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export async function clientLoader() {
   return await authLoader();
 }

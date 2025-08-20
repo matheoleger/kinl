@@ -59,7 +59,10 @@
           "label": "Pinned tags"
         }
       }
-    }
+    },
+    "app_name": "kinL",
+    "baseline": "A link bookmarking service that allows you to store links and share them with your friends and colleagues.",
+    "continue": "Continue"
   },
   "tags": {
     "create_tags_dialog": {
@@ -102,7 +105,15 @@
               "invalid_name": "Tag name must be at least 2 characters long"
             }
           }
-        }
+        },
+        "items": {
+          "delete": "Delete",
+          "edit": "Edit",
+          "unpin": "Unpin tag",
+          "pin": "Pin tag",
+          "view": "View"
+        },
+        "title": "Actions"
       }
     },
     "pinned_tag": {
