@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.6.0 (2025-08-20)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### New Features 🎉
+* feat(monitoring): add prometheus endpoint in the api by @matheoleger in https://github.com/matheoleger/kinl/pull/27
+### Maintenance 🧹
+* chore: clean code + documentation by @matheoleger in https://github.com/matheoleger/kinl/pull/29
+
+
+**Full Changelog**: https://github.com/matheoleger/kinl/compare/v0.5.0...v0.6.0
+
 ## 0.5.0 (2025-08-11)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
