@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: kinl-api
+    static_configs:
+      - targets: ['staging.api.kinl.dok.lonestone.io:3000']
+      - targets: ['host.docker.internal:3000']
