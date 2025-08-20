@@ -132,3 +132,7 @@ In a world where this project is not a solo development school project, the PRs 
 You can ask for a review by adding the "Review Required" label.
 
 If the pull request is valid, you can merge it. If not, you need to fix the problems and ask for a new review.
+
+# Deploy fixes
+
+You can read the [deployment documentation](./docs/deployment.md#deploy-fixes) for more information.
