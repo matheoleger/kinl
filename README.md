@@ -12,6 +12,17 @@
   - [Frontend development](#frontend-development)
 - [Contributing](#contributing)
 
+### Other documentation files
+
+- [Deployment](./docs/deployment.md)
+- [Dependencies update](./docs/dependencies_update.md)
+- [Github Actions README](./.github/README.md)
+- [Docker README](./docker/README.md)
+- [Monitoring README](./docker/monitoring/README.md)
+- [API README](./apps/api/README.md)
+- [PWA README](./apps/pwa/README.md)
+- [Codegen API README](./packages/codegen-api/README.md)
+
 ## What is kinL?
 
 kinL is a web application (and mobile because it's a PWA) that allows you to store and share links (videos, blogs, websites, etc.). It's like a collaborative bookmarking tool. With this application, you can easily save your favorite content, organize your links and share them with other people (friends, family, colleagues, etc.).
