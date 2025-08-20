@@ -26,10 +26,12 @@ services:
     image: kinl:latest
     ports:
       - '3002:3000' # Useful for the browser extension but not for the PWA
-      - '81:80'
+      - '82:80'
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - TRUSTED_ORIGINS=${TRUSTED_ORIGINS}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
     depends_on:
       - db
   db:
