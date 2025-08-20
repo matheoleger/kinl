@@ -1,5 +1,7 @@
 # kinL
 
+![kinL Logo](./docs/images/logo.png)
+
 ## Table of Contents
 
 - [What is kinL?](#what-is-kinl)
@@ -16,7 +18,7 @@
 
 - [Deployment](./docs/deployment.md)
 - [Dependencies update](./docs/dependencies_update.md)
-- [Github Actions README](./.github/README.md)
+- [Github Actions README](./docs/github_workflow.md)
 - [Docker README](./docker/README.md)
 - [Monitoring README](./docker/monitoring/README.md)
 - [API README](./apps/api/README.md)
@@ -42,6 +44,10 @@ In future versions, we plan to add the following features:
 - Notes: You can add notes to your links. For example, you can summarize the content of your links or add additional information.
 
 ## Tech Stack
+
+Here is the architecture of the prototype of kinL:
+
+![kinL Architecture](./docs/images/architecture.png)
 
 kinL is built using the following technologies:
 
