@@ -39,12 +39,12 @@ export function TagActionDropdown({ tag }: { tag: TagSchema }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>{t('tags.card.actions.title')}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <NavLink to={`/links?tags=${tag.name}`}>
               <EyeIcon />
-              View
+              {t('tags.card.actions.items.view')}
             </NavLink>
           </DropdownMenuItem>
           {
@@ -52,23 +52,23 @@ export function TagActionDropdown({ tag }: { tag: TagSchema }) {
               ? (
                   <DropdownMenuItem onSelect={() => createPinnedTag(tag.id)}>
                     <PinIcon />
-                    Pin tag
+                    {t('tags.card.actions.items.pin')}
                   </DropdownMenuItem>
                 )
               : (
                   <DropdownMenuItem onSelect={() => deletePinnedTag(tag.id)}>
                     <PinOffIcon />
-                    Unpin tag
+                    {t('tags.card.actions.items.unpin')}
                   </DropdownMenuItem>
                 )
           }
           <DropdownMenuItem onSelect={() => setAlertEditOpen(true)}>
             <Edit2Icon />
-            Edit
+            {t('tags.card.actions.items.edit')}
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={() => setAlertDeleteOpen(true)} className="text-destructive">
             <Trash2Icon className="text-destructive" />
-            Delete
+            {t('tags.card.actions.items.delete')}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -80,10 +80,10 @@ export function TagActionDropdown({ tag }: { tag: TagSchema }) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>
-              Cancel
+              {t('common.cancel')}
             </AlertDialogCancel>
             <AlertDialogAction onClick={onDeleteConfirm}>
-              Continue
+              {t('common.continue')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

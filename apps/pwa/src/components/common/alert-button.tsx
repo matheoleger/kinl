@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../ui/alert-dialog';
 
 interface AlertButtonProps {
@@ -11,6 +12,8 @@ interface AlertButtonProps {
 }
 
 export function AlertButton({ children, title, description, onConfirm, asChild = false, ...props }: AlertButtonProps & React.ComponentProps<'button'>) {
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -23,10 +26,10 @@ export function AlertButton({ children, title, description, onConfirm, asChild =
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>
-            Cancel
+            {t('common.cancel')}
           </AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm}>
-            Continue
+            {t('common.continue')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

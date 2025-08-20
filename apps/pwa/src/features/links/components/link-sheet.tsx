@@ -64,7 +64,7 @@ export function LinkSheet({ link }: LinkSheetProps) {
         <div className="h-full flex flex-col justify-center items-center gap-4">
           <div className="flex gap-2 text-muted-foreground">
             <NotebookIcon />
-            There is no note for now...
+            Notes are not yet supported.
           </div>
         </div>
       </SheetContent>

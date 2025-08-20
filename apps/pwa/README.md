@@ -1,87 +1,69 @@
-# Welcome to React Router!
+# kinL PWA
 
-A modern, production-ready template for building full-stack React applications using React Router.
+## Develop
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+First of all, to start the PWA to develop, you can follow the steps from the [README.md](../../README.md#start-the-project) file.
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+To work on your front-end functionality, you need to create a folder corresponding to your functionality. This folder can contain the components, hooks, etc. that are related to your functionality:
 
 ```bash
-npm install
+apps/pwa/
+├── features/
+│   ├── <feature-name>/
+│   │   ├── components/
+│   │   │   ├── <component-name>.tsx
+│   │   │   └── ...
+│   │   ├── hooks/
+│   │   │   ├── <hook-name>.ts
+│   │   │   └── ...
+│   │   ├── tests/
+│   │   │   ├── <component-name>.test.tsx
+│   │   │   ├── <hook-name>.test.ts
+│   │   │   └── ...
+└── routes/
+    ├── <page-name>.tsx
+    └── ...
 ```
 
-### Development
+You can call the API client from the components, hooks, etc. but we recommend to use the `useQuery` hook from `Tanstack query` to call the API client.
 
-Start the development server with HMR:
+You can use it in a hook like this:
+
+```ts
+export function useCreateLink({ onSuccess, onError }: UseLinkMutationsOptions = {}) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['links'],
+    mutationFn: async (data: CreateLinkSchema) => {
+      const res = await apiClient.linksControllerCreateLink({ body: data }); // Here the API client is called
+
+      if (res.error) {
+        throw res.error; // Error are already handled by the API client so you need to use res.error to throw a new error and catch it with the onError callback.
+      }
+
+      return res.data;
+    },
+    onSuccess: () => {
+      onSuccess?.();
+      queryClient.invalidateQueries({ queryKey: ['links'] });
+      queryClient.invalidateQueries({ queryKey: ['tags'] });
+      toast.success(t('links.create_link_dialog.form.success'));
+    },
+    onError: (error) => {
+      onError?.(error);
+      console.error(error);
+      toast.error(t(`api_errors.${error.message}`));
+    },
+  });
+}
+```
+
+## Tests
+
+To run the tests, you can use the following command:
 
 ```bash
-npm run dev
+pnpm test
 ```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
