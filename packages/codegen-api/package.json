@@ -2,7 +2,7 @@
   "name": "@kinl/codegen-api",
   "version": "0.6.0",
   "private": true,
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@11.22.0",
   "description": "",
   "author": "",
   "license": "ISC",
@@ -13,12 +13,12 @@
     "generate": "dotenvx run -- openapi-ts -f ./openapi-ts.config.ts"
   },
   "dependencies": {
-    "zod": "^3.25.68"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.45.1",
-    "@hey-api/openapi-ts": "^0.76.0",
-    "@types/node": "^24.0.3",
-    "wait-on": "^8.0.3"
+    "@dotenvx/dotenvx": "^2.21.0",
+    "@hey-api/openapi-ts": "^0.99.0",
+    "@types/node": "^24.13.3",
+    "wait-on": "^9.1.0"
   }
 }
